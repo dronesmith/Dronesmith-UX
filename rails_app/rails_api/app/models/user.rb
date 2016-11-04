@@ -3,10 +3,13 @@ class User < ApplicationRecord
   # :confirmable, :lockable, :timeoutable and :omniauthable
   # devise :database_authenticatable, :registerable,
   #        :recoverable, :rememberable, :trackable, :validatable
-  has_secure_token
-  # after_create :update_access_token!  
-  
 
+   has_secure_token
+   # has_secure_password
+   # validates :password, presence: true
+
+  # after_create :update_access_token!  
+  # validates :token, uniqueness: true
 end
 # user = User.new
 # user.save

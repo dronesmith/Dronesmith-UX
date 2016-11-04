@@ -9,7 +9,7 @@ class Nav extends React.Component {
 
     render() {
         return (
-        <nav id='nav_page'>
+        <nav className="navbar navbar-default">
           <div className='navbar-brand'>            
             <a href={this.props.url}> {this.props.title} </a>
           
