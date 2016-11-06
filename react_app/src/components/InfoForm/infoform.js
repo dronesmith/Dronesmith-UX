@@ -7,7 +7,15 @@ import {map} from 'lodash/map';
 import axios from 'axios';
 import {nextStep} from '../Registration/registration.js'
 import { Link } from 'react-router';
-import LoginForm from '../LoginForm/loginform.js'
+import LoginForm from '../LoginForm/loginform.js';
+import ButtonToolbar from 'react-bootstrap'
+import DropdownButton from 'react-bootstrap'
+import MenuItem from 'react-bootstrap'
+import Select from 'react-select';
+import Button from 'react-bootstrap/lib/Button';
+import ButtonGroup from 'react-bootstrap'
+import Primary from 'react-bootstrap'
+import ReactBootstrap from 'react-bootstrap'
 
 
 class InfoForm extends React.Component {
@@ -25,6 +33,7 @@ class InfoForm extends React.Component {
     this.onChange= this.onChange.bind(this)
     this.onSubmit= this.onSubmit.bind(this)
     this.userSignUp= this.userSignUp.bind(this)
+
   } 
 
     onChange(e, name){
@@ -45,8 +54,9 @@ class InfoForm extends React.Component {
         email: this.state.email,
         passwordInput: newpas,
         passwordConfirm: newpascon,
-        language: this.state.language}
+        language: this.state.language
         }
+      }
         var userData = form.user;
         console.log(userData);
           $.ajax({
@@ -56,9 +66,8 @@ class InfoForm extends React.Component {
             success: function(data){
               console.log('success');
             }        
-      });           
+          });           
     }
-
     // axios.post('http://localhost:5050/callback/', {user:this.state}).then(function(response)
     //   { console.log('saved successfully')
     // })}
@@ -67,16 +76,32 @@ class InfoForm extends React.Component {
       e.preventDefault();
       this.userSignUp(this.state)
       this.props.nextStep()
-    }
-     
-  render() {
+    };
+      
+
+render(){
+ 
+    
+  var buttonGroupInstance = (
+  <ButtonGroup>
+    <DropdownButton bsStyle="success" title="Dropdown">
+      <MenuItem key="1">Dropdown link</MenuItem>
+      <MenuItem key="2">Dropdown link</MenuItem>
+    </DropdownButton>
+    <Button bsStyle="info">Middle</Button>
+    <Button bsStyle="info">Right</Button>
+  </ButtonGroup>
+);
+
+
+ 
 
     return (
-      <div>
+    <div>
       <form onChange={this.onChange}>
       <div className="center_page">
       <div className="row">
-                   <input type="text"
+                    <input type="text"
                    ref="firstName"
                    name= "firstName"
                    placeholder= "first name" 
@@ -110,28 +135,18 @@ class InfoForm extends React.Component {
                    ref="passwordConfirm"
                    name= "passwordConfirm"
                    placeholder= "passwordConfirm" 
-                    /> 
-                   
-             <div className="form-group">
-                <label className="control-label">Choose language</label>
-                <select 
-                  className="form-control"
-                  name="language"
-                  value={this.state.language}
-                >
-                  <option value="" disabled>Choose your language</option>
-                </select>
-              </div>
+                    />  
+             
                  <br/><br/>
-
-            <button onClick={this.onSubmit}> Get Started</button>
+            <Button onClick={this.onSubmit}> Get Started</Button>
           </div>
+
         </div>
-        </form>
-      </div>
-      //not sure if login link works!
-      )
-  } 
+        </form>  
+          render()return{{buttonGroupInstance}}
+    </div>
+    )
+  }
 }
 
 export default InfoForm;

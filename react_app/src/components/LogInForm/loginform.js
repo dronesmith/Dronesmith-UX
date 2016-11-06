@@ -8,6 +8,8 @@ import InfoForm from '../InfoForm/infoform.js';
 import {nextStep} from '../Registration/registration.js'
 import PasswordForm from '../PasswordForm/passwordform.js';
 import { Link } from 'react-router';
+import Button from 'react-bootstrap/lib/Button';
+
 
 
 
@@ -79,7 +81,7 @@ class LoginForm extends React.Component {
              placeholder= "inputPassword" />
             </div>
               <br/><br/>
-            <button onClick={this.onSubmit}> Log in</button>
+            <Button onClick={this.onSubmit}> Log in</Button>
 
           </div>
         </form>     
