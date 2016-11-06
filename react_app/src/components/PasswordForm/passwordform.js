@@ -6,38 +6,30 @@ var $ = require('jquery');
 import axios from 'axios';
 import InfoForm from '../InfoForm/infoform.js';
 import {nextStep} from '../Registration/registration.js'
-import PasswordForm from '../PasswordForm/passwordform.js';
 import { Link } from 'react-router';
 
 
 
-class LoginForm extends React.Component {
+class PasswordForm extends React.Component {
  constructor(props){
     super(props)
     this.state={
-      firstName: "",
-      lastName: "",
-      inputPassword: ""
+      step: 1   
     }
 
-    this.onChange= this.onChange.bind(this)
+    // this.emailChange= this.emailChange.bind(this)
     this.onSubmit= this.onSubmit.bind(this)
-    this.userLogIn= this.userLogIn.bind(this)
+    this.sendEmail= this.sendEmail.bind(this)
 
 } 
+     
 
-    onChange(e, name){
-      var change = {};
-      change[e.target.name] =e.target.value;
-      this.setState(change);     
-    }
-
-    userLogIn(){
-      var form = {user:this.state};
-        console.log(form.user);
+    sendEmail(email){
+        console.log(email)
+        debugger
         $.ajax({
           url: "http://localhost:3000/login/", 
-          data: form,
+          data: email,
           type: "POST",
           success: function(data){
             console.log('success');
@@ -53,40 +45,45 @@ class LoginForm extends React.Component {
           // This will be called when the user clicks on the login button
      onSubmit(e){
       e.preventDefault();
-      this.userLogIn(this.state)
-     };
+      this.sendEmail(function emailChange(){
+        var emailChange = document.getElementById('textbox_id').value;
+       return emailChange
+      }())
+      this.setState({step: 2})
+     }
 
       
   render() {
+
+    switch (this.state.step){
+
+    case 1:
     return (
-        <div>
-        <form onChange={this.onChange}>
+      <div>
+        <form>
           <div className="center_page">
             <div className="row">
              <input type="text"
-             ref="firstName"
-             name= "firstName"
-             placeholder= "first name" /> 
-             
-             <input type="text"
-             ref="lastName"
-             name= "lastName"
-             placeholder= "last name" />
-             
-             <input type="text"
-             ref="inputPassword"
-             name= "inputPassword"
-             placeholder= "inputPassword" />
+               ref="email"
+               id='textbox_id'
+               name= "email"
+               placeholder= "Your Email" /> 
             </div>
               <br/><br/>
-            <button onClick={this.onSubmit}> Log in</button>
-
-          </div>
+                <button onClick={this.onSubmit}> Enter your Email </button>
+           </div>
         </form>     
+      </div>
+    )
+    case 2:
+    return (
+       <div>
+         <p> Thank you your Password was sent</p>
        </div>
-      )
-   }
+           )
+   } 
+ } 
 }
 
-export default LoginForm;
+export default PasswordForm;
   

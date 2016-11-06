@@ -3,6 +3,7 @@ import InfoForm from '../InfoForm/infoform.js';
 import Verification from '../Verification/verification.js'
 import Welcome from '../Welcome/welcome.js'
 import LoginForm from '../LoginForm/loginform.js'
+import PasswordForm from '../PasswordForm/passwordform.js';
 
 
 var fieldValues = {
@@ -32,8 +33,11 @@ class Registration extends React.Component{
       this.state={
         step: 1
         };
-     this.nextStep=this.nextStep.bind(this)
-     this.logStep=this.logStep.bind(this)
+     this.nextStep=this.nextStep.bind(this),
+     this.logStep=this.logStep.bind(this),
+     this.passwordStep=this.passwordStep.bind(this),
+     this.previousStep=this.previousStep.bind(this)
+     this.signupStep=this.signupStep.bind(this)
 
   }
 
@@ -59,6 +63,17 @@ class Registration extends React.Component{
   })
 };
 
+   passwordStep(){
+  this.setState({
+    step : 5
+  })
+};
+ 
+ signupStep(){
+  this.setState({
+    step : 1
+  })
+};
 
 
   render() {
@@ -82,7 +97,17 @@ class Registration extends React.Component{
         return <Welcome />
 
       case 4:
-        return <LoginForm />
+        return (
+              <div>
+                <LoginForm />
+                <button onClick={this.passwordStep}>Forgot Password</button>
+                <button onClick={this.signupStep}>Sign up for Free</button>
+              </div>
+                )
+        case 5:
+         return (
+            <PasswordForm />
+          )
 
     }
   }
