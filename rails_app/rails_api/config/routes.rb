@@ -6,7 +6,7 @@ resources :users
   # root to: 'site#index'
   # get '/callback/', to: 'site#parsecode'
   post '/callback/', to: 'site#parsecode'
-
+   
   get '/login/', to: 'site#login'
 
 
