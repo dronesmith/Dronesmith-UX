@@ -1,10 +1,13 @@
 import React from 'react';
 import Registration  from '../Registration/registration.js'
-import Footer  from '../Footer/footer.js'
 import {saveValues} from '../Registration/registration.js'
 import '../App/styles/app.css';
 var $ = require('jquery');
 import axios from 'axios';
+import InfoForm from '../InfoForm/infoform.js';
+import {nextStep} from '../Registration/registration.js'
+
+
 
 class LoginForm extends React.Component {
  constructor(props){
@@ -53,31 +56,30 @@ class LoginForm extends React.Component {
       
   render() {
     return (
+      <div>
       <form onChange={this.onChange}>
-        <div className="center_page">
-          <div className="row">
-           <input type="text"
-           ref="firstName"
-           name= "firstName"
-           placeholder= "first name" 
-           defaultValue={ this.props.fieldValues.firstName } /> 
-           
-           <input type="text"
-           ref="lastName"
-           name= "lastName"
-           placeholder= "last name"
-           defaultValue={ this.props.fieldValues.lastName } /> 
-           
-           <input type="text"
-           ref="inputPassword"
-           name= "inputPassword"
-           placeholder= "inputPassword"
-           defaultValue={ this.props.fieldValues.inputPassword } />        
-          </div>
-            <br/><br/>
-          <button onClick={this.onSubmit}> Log in</button>
-        </div>
-      </form>
+      <div className="center_page">
+      <div className="row">
+                 <input type="text"
+                 ref="firstName"
+                 name= "firstName"
+                 placeholder= "first name" /> 
+                 
+                 <input type="text"
+                 ref="lastName"
+                 name= "lastName"
+                 placeholder= "last name" />
+                 
+                 <input type="text"
+                 ref="inputPassword"
+                 name= "inputPassword"
+                 placeholder= "inputPassword" />
+                </div>
+                  <br/><br/>
+                <button onClick={this.onSubmit}> Log in</button>
+              </div>
+            </form>     
+     </div>
     )
   } 
 }

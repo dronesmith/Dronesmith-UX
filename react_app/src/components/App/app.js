@@ -7,6 +7,8 @@ import Registration  from '../Registration/registration.js'
 import Nav from '../Nav/nav.js'
 import Footer from '../Footer/footer.js'
 import AppBar from 'material-ui/AppBar';
+import { Link } from 'react-router';
+
 
     // getUsers(){
     //   var form = {user:this.state};
@@ -37,7 +39,6 @@ class App extends React.Component {
           <br/><br/><br/>
           <Footer />
         </div>
-
       </div>
 
     );

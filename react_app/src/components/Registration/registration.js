@@ -2,7 +2,7 @@ import React from 'react';
 import InfoForm from '../InfoForm/infoform.js';
 import Verification from '../Verification/verification.js'
 import Welcome from '../Welcome/welcome.js'
-import LoginForm from '../LogInForm/loginform.js'
+import LoginForm from '../LoginForm/loginform.js'
 
 
 var fieldValues = {
@@ -21,11 +21,6 @@ var fieldValues = {
 //   }()
 // }
 
-function nextStep(){
-  this.setState({
-    step : this.state.step + 1
-  })
-};
 
 // Same as nextStep, but decrementing
 
@@ -38,6 +33,8 @@ class Registration extends React.Component{
         step: 1
         };
      this.nextStep=this.nextStep.bind(this)
+     this.logStep=this.logStep.bind(this)
+
   }
 
     saveValues(fields) {
@@ -56,12 +53,24 @@ class Registration extends React.Component{
    })
  };
 
+   logStep(){
+  this.setState({
+    step : 4
+  })
+};
+
 
 
   render() {
+    
     switch (this.state.step) {
       case 1:
-        return <InfoForm nextStep={this.nextStep} saveValues={this.saveValues}/>
+        return (
+              <div>
+                <InfoForm nextStep={this.nextStep} saveValues={this.saveValues}/>
+                <button onClick={this.logStep}>Login</button>
+               </div>
+                )
                            
                             
       case 2:
@@ -71,6 +80,10 @@ class Registration extends React.Component{
                             saveValues={this.saveValues} />
       case 3:
         return <Welcome />
+
+      case 4:
+        return <LoginForm />
+
     }
   }
 }

@@ -7,6 +7,7 @@ import {map} from 'lodash/map';
 import axios from 'axios';
 import {nextStep} from '../Registration/registration.js'
 import { Link } from 'react-router';
+import LoginForm from '../LoginForm/loginform.js'
 
 
 class InfoForm extends React.Component {
@@ -25,25 +26,37 @@ class InfoForm extends React.Component {
     this.onSubmit= this.onSubmit.bind(this)
     this.userSignUp= this.userSignUp.bind(this)
   } 
+
     onChange(e, name){
       var change = {};
       change[e.target.name]=e.target.value;
       this.setState(change);     
     }
-
+     //must refactor signup code and seperate functions 
     userSignUp(){
       var self = this
-      var form = {user:this.state};
+      const newpas= window.btoa(self.state.passwordInput)
+      const newpascon= window.btoa(self.state.passwordConfirm)
+      var form = {
+        user:  {
+        firstName: this.state.firstName,
+        lastName: this.state.lastName,
+        companyName: this.state.companyName,
+        email: this.state.email,
+        passwordInput: newpas,
+        passwordConfirm: newpascon,
+        language: this.state.language}
+        }
         var userData = form.user;
         console.log(userData);
-        $.ajax({
-          url: "http://localhost:3000/callback/", 
-          data: userData,
-          type: "POST",
-          success: function(data){
-            console.log('success');
-          }        
-        });       
+          $.ajax({
+            url: "http://localhost:3000/callback/", 
+            data: userData,
+            type: "POST",
+            success: function(data){
+              console.log('success');
+            }        
+      });           
     }
 
     // axios.post('http://localhost:5050/callback/', {user:this.state}).then(function(response)
@@ -115,11 +128,6 @@ class InfoForm extends React.Component {
           </div>
         </div>
         </form>
-        <div> 
-          <ul>
-            <li><Link to="/login">Log in</Link></li>
-          </ul>
-        </div>
       </div>
       //not sure if login link works!
       )
