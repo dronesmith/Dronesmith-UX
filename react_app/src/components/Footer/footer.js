@@ -9,8 +9,9 @@ import '../App/images/icon_small.svg';
  * @module Footer
  */
 class Footer extends React.Component {
-
+	
     render() {
+
         return (
           <div className='footer_page'>
             2016, Dronesmith Technologies. All Rights Reserved. 

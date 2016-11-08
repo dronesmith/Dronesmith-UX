@@ -17,8 +17,7 @@ class LoginForm extends React.Component {
  constructor(props){
     super(props)
     this.state={
-      firstName: "",
-      lastName: "",
+      email: "",
       inputPassword: ""
     }
 
@@ -35,7 +34,14 @@ class LoginForm extends React.Component {
     }
 
     userLogIn(){
-      var form = {user:this.state};
+      var self = this
+      const newpas= window.btoa(self.state.passwordInput)
+      var form = {
+        user:  {
+        email: this.state.email,
+        passwordInput: newpas
+        }
+      }
         console.log(form.user);
         $.ajax({
           url: "http://localhost:3000/login/", 
@@ -66,19 +72,14 @@ class LoginForm extends React.Component {
           <div className="center_page">
             <div className="row">
              <input type="text"
-             ref="firstName"
-             name= "firstName"
-             placeholder= "first name" /> 
-             
-             <input type="text"
-             ref="lastName"
-             name= "lastName"
-             placeholder= "last name" />
+             ref="email"
+             name= "email"
+             placeholder= "Email" /> 
              
              <input type="text"
              ref="inputPassword"
              name= "inputPassword"
-             placeholder= "inputPassword" />
+             placeholder= "Choose your password" />
             </div>
               <br/><br/>
             <Button onClick={this.onSubmit}> Log in</Button>

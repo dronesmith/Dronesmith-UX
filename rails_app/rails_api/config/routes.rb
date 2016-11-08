@@ -7,7 +7,8 @@ resources :users
   # get '/callback/', to: 'site#parsecode'
   post '/callback/', to: 'site#parsecode'
    
-  get '/login/', to: 'site#login'
+  post '/login/', to: 'site#login'
+  post '/phonecall/', to: 'site#phonecall'
 
 
   namespace :api do 
