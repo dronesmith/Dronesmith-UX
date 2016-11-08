@@ -38,16 +38,16 @@ class SiteController < ApplicationController
     end
 
     def clouddata(code) 
-      HTTParty.post("http://api.dronesmith.io/index/user",
+       HTTParty.post("http://api.dronesmith.io/index/user",
         body:  {
-          "email": "code['email']",
-          "phone": "555-555-5555",
+          "email": code['email'],
+          "phone": "321-360-6283",
           "country": "1",
-          "company": "code['company']",
-          "firstname": "code['email']",
-          "lastname": "code['lastName']",
+          "company": code['company'],
+          "firstname": code['firstName'],
+          "lastname": code['lastName'],
           "language": "Javascript",
-          "password": "code['passwordInput']"
+          "password": code['passwordInput']
           },   
 
         headers: {"admin-key": "7a7c9a8a-7216-44b7-9423-737eb8c81684"}
