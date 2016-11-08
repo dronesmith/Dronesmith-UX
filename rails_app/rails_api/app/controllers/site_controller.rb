@@ -7,6 +7,7 @@ require 'json'
 class SiteController < ApplicationController
   # skip_before_action :authenticate_user_from_token!
   # before_filter :parsecode
+  @@current_user =''
 
   def index
     render json: User.all
@@ -35,39 +36,41 @@ class SiteController < ApplicationController
     def add_userId(user_params) 
        @user_params["id"]= @user_id
        self.clouddata(@user_params) 
+       @@current_user = @user_params
     end
 
     def clouddata(code) 
-       HTTParty.post("http://api.dronesmith.io/index/user",
-        body:  {
-          "email": code['email'],
-          "phone": "321-360-6283",
-          "country": "1",
-          "company": code['company'],
-          "firstname": code['firstName'],
-          "lastname": code['lastName'],
-          "language": "Javascript",
-          "password": code['passwordInput']
-          },   
-
-        headers: {"admin-key": "7a7c9a8a-7216-44b7-9423-737eb8c81684"}
-        )
+     HTTParty.post("http://api.dronesmith.io/index/user",
+      body:  {
+        "email": code['email'],
+        "phone": "321-360-6283",
+        "country": "1",
+        "company": code['company'],
+        "firstname": code['firstName'],
+        "lastname": code['lastName'],
+        "language": "javascript",
+        "password": code['passwordInput']
+        },   
+      headers: {"admin-key": "7a7c9a8a-7216-44b7-9423-737eb8c81684"}
+        )   
     end
-  
+     
 
   ##METHODS TO LOG-IN
     def login
       @log_inparams = request.request_parameters
       self.log_data(@log_inparams ) 
+            binding.pry
+
       render json: @log_inparams 
     end
 
 
     def log_data(code) 
-      HTTParty.get("http://api.dronesmith.io/index/user/",
+      binding.pry
+      HTTParty.post("http://api.dronesmith.io/index/user/#{code['user']['email']}/password",
       body:  {
-        "email": "code['email']",
-        "password": "code['passwordInput']"
+        "password": code['passwordInput']
         },   
       headers: {"admin-key": "7a7c9a8a-7216-44b7-9423-737eb8c81684"}
      )
@@ -83,13 +86,16 @@ class SiteController < ApplicationController
     
 
     def phone_data(code) 
-      uri_userPhone = ("http://api.dronesmith.io/index/user/#{code['phoneNumber']}/authPhone").gsub(/"/,"")
+      user_email = @current_user['email']
+      uri_userPhone = ("http://api.dronesmith.io/index/user/#{user_email}/authPhone").gsub(/"/,"")
+           binding.pry
       HTTParty.get(uri_userPhone,
       body:  {
-        "phone": "code['phoneNumber']"
+        "phone": code['phoneNumber']
         },   
       headers: {"admin-key": "7a7c9a8a-7216-44b7-9423-737eb8c81684"}
      )
+      binding.pry
     end
 
 end

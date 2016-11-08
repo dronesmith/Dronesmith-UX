@@ -42,6 +42,7 @@ class LoginForm extends React.Component {
         passwordInput: newpas
         }
       }
+      
         console.log(form.user);
         $.ajax({
           url: "http://localhost:3000/login/", 

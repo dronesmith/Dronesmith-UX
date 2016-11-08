@@ -30,7 +30,7 @@ class Verification extends React.Component {
           success: function(data){
             console.log('success');
           }        
-        });        
+      });        
   }
 
     onSubmit(e){
@@ -50,7 +50,7 @@ class Verification extends React.Component {
           <input type="text"
                  name="phoneNumber"
                  placeholder= "Enter your Phone Number" />    
-          <button onClick={ this.onSubmit }> Verify via SMS</button>
+          <button onClick={ this.onSubmit }> Verify your phone via SMS</button>
         </div>
       </form>
       </div>
