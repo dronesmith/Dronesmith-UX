@@ -1,14 +1,13 @@
 require 'rest-client'
-require 'httparty'
 require 'pry'
 require 'json'
+require 'httparty'
 
 
 class SiteController < ApplicationController
   # skip_before_action :authenticate_user_from_token!
   # before_filter :parsecode
-  @@current_user =''
-
+include HTTParty
   def index
     render json: User.all
   end
@@ -32,27 +31,35 @@ class SiteController < ApplicationController
        end 
       self.add_userId(@user_params)
    end
-    
+
+
     def add_userId(user_params) 
        @user_params["id"]= @user_id
        self.clouddata(@user_params) 
-       @@current_user = @user_params
+       self.make_jwt(@user_params)
     end
 
+#NEED TO MAKE LOG-IN VERSION OF THIS CODE
+    def make_jwt(user)
+      user = User.find_by(email: @user_params['email'])
+      jwt = Auth.issue({user: user.id})
+      render json: {jwt: jwt}
+    end 
+
     def clouddata(code) 
-     HTTParty.post("http://api.dronesmith.io/index/user",
-      body:  {
-        "email": code['email'],
-        "phone": "321-360-6283",
-        "country": "1",
-        "company": code['company'],
-        "firstname": code['firstName'],
-        "lastname": code['lastName'],
-        "language": "javascript",
-        "password": code['passwordInput']
-        },   
-      headers: {"admin-key": "7a7c9a8a-7216-44b7-9423-737eb8c81684"}
-        )   
+     response = HTTParty.post("http://api.dronesmith.io/admin/user",
+      {body: {    
+      "email": code["email"],
+      "firstname": code["firstName"],
+      "lastname": code["lastName"],
+      "phone": "555-555-5555",
+      "country": "1",
+      "company": code["companyName"],
+      "language": code["language"],
+      "password": code["passwordInput"]
+      },   
+      headers: {"admin-key": "ca93abe8-6f81-4bad-ab04-60a43d73e877"} }
+    )   
     end
      
 
@@ -60,22 +67,17 @@ class SiteController < ApplicationController
     def login
       @log_inparams = request.request_parameters
       self.log_data(@log_inparams ) 
-            binding.pry
-
       render json: @log_inparams 
     end
 
-
     def log_data(code) 
-      binding.pry
       HTTParty.post("http://api.dronesmith.io/index/user/#{code['user']['email']}/password",
-      body:  {
+      {body:  {
         "password": code['passwordInput']
         },   
-      headers: {"admin-key": "7a7c9a8a-7216-44b7-9423-737eb8c81684"}
+      headers: {"admin-key": "ca93abe8-6f81-4bad-ab04-60a43d73e877", "Content-Type": "application/json"}}
      )
     end
-
 
     ##METHODS TO SEND PHONE NUMBER TO VERIFY PHONE
     def phonecall
@@ -83,20 +85,43 @@ class SiteController < ApplicationController
       self.phone_data(@phone_params) 
       render json: @phone_params
     end
-    
 
     def phone_data(code) 
-      user_email = @current_user['email']
-      uri_userPhone = ("http://api.dronesmith.io/index/user/#{user_email}/authPhone").gsub(/"/,"")
-           binding.pry
-      HTTParty.get(uri_userPhone,
-      body:  {
-        "phone": code['phoneNumber']
-        },   
-      headers: {"admin-key": "7a7c9a8a-7216-44b7-9423-737eb8c81684"}
-     )
       binding.pry
+      user_email = code['email']
+      HTTParty.post("http://api.dronesmith.io/index/user/#{user_email}/sendsms",
+        {
+          body: {
+            "phone": code['phoneNumber'],
+            "country": code['countryCode']
+            },
+          headers: {"admin-key": "ca93abe8-6f81-4bad-ab04-60a43d73e877"}
+        })
     end
+
+   #Verify User code  
+    def verify_code
+      @code_params = request.request_parameters
+      self.code_data(@code_params) 
+    end
+
+    def code_data(data)
+      binding.pry
+      user_email = data['email']
+      uri_userCode = "http://api.dronesmith.io/index/user/#{user_email}/verify"
+      HTTParty.post(uri_userCode,
+      {body:  {
+        "code": data['code']
+        },   
+      headers: {"admin-key": "ca93abe8-6f81-4bad-ab04-60a43d73e877"}}
+     )
+    end
+
+  private
+    def auth_params
+      params.require(:auth).permit(:email, :password)
+    end
+
 
 end
 

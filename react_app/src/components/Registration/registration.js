@@ -4,6 +4,7 @@ import Verification from '../Verification/verification.js'
 import Welcome from '../Welcome/welcome.js'
 import LoginForm from '../LoginForm/loginform.js'
 import PasswordForm from '../PasswordForm/passwordform.js';
+import PhoneForm from '../PhoneForm/phoneform.js';
 
 
 var fieldValues = {
@@ -38,6 +39,7 @@ class Registration extends React.Component{
      this.passwordStep=this.passwordStep.bind(this),
      this.previousStep=this.previousStep.bind(this)
      this.signupStep=this.signupStep.bind(this)
+     this.codeStep=this.codeStep.bind(this)
 
   }
 
@@ -57,15 +59,22 @@ class Registration extends React.Component{
    })
  };
 
+  codeStep(){
+  this.setState({
+    step : 3
+  })
+};
+
+
    logStep(){
   this.setState({
-    step : 4
+    step : 5
   })
 };
 
    passwordStep(){
   this.setState({
-    step : 5
+    step : 6
   })
 };
  
@@ -82,21 +91,29 @@ class Registration extends React.Component{
       case 1:
         return (
               <div>
-                <InfoForm nextStep={this.nextStep} saveValues={this.saveValues}/>
+                <InfoForm nextStep={this.nextStep} 
+                          saveValues={this.saveValues}/>
                 <button onClick={this.logStep}>Login</button>
-               </div>
+              </div>
                 )
-                           
-                            
+
       case 2:
+      return <PhoneForm fieldValues={fieldValues}
+                          nextStep={this.nextStep}
+                          previousStep={this.previousStep}
+                          codeStep ={this.codeStep}                  
+                          saveValues={this.saveValues} />
+
+      case 3:
         return <Verification fieldValues={fieldValues}
                             nextStep={this.nextStep}
                             previousStep={this.previousStep}
+                            welcome = {this.welcome}
                             saveValues={this.saveValues} />
-      case 3:
+      case 4:
         return <Welcome />
 
-      case 4:
+      case 5:
         return (
               <div>
                 <LoginForm />
@@ -104,7 +121,7 @@ class Registration extends React.Component{
                 <button onClick={this.signupStep}>Sign up for Free</button>
               </div>
                 )
-        case 5:
+        case 6:
          return (
             <PasswordForm />
           )

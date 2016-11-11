@@ -7,35 +7,37 @@ class Verification extends React.Component {
   constructor(props){
     super(props)
     this.state = {
-      phoneNumber: ""
+      code: ""
     }
 
     this.onSubmit=this.onSubmit.bind(this)
     this.onChange=this.onChange.bind(this)
-    this.submitNumber= this.submitNumber.bind(this)
+    this.submitCode= this.submitCode.bind(this)
   }
 
     onChange(e, name){
       var change = {};
       change[e.target.name]=e.target.value;
-      this.setState(change);     
+      this.setState(change);
+           
     }
 
-  submitNumber(){
-      debugger
-     $.ajax({
-          url: "http://localhost:3000/phonecall/", 
-          data: this.state,
-          type: "POST",
-          success: function(data){
-            console.log('success');
-          }        
-      });        
+  submitCode(){
+      
+     this.props.fieldValues.user['code']=this.state.code
+    $.ajax({
+        url: "http://localhost:3000/verifycode/", 
+        data: this.props.fieldValues.user,
+        type: "POST",
+        success: function(data){
+          console.log('success');
+        }        
+    });        
   }
 
     onSubmit(e){
       e.preventDefault();
-      this.submitNumber(this.state)
+      this.submitCode(this.props.state)
       debugger
       this.props.nextStep()
     };
@@ -48,19 +50,15 @@ class Verification extends React.Component {
       <form onChange={this.onChange}>
         <div className="center_page">
           <input type="text"
-                 name="phoneNumber"
-                 placeholder= "Enter your Phone Number" />    
-          <button onClick={ this.onSubmit }> Verify your phone via SMS</button>
+            name="phoneNumber"
+            placeholder= "Enter your Phone Number" />  
+          <button onClick={ this.onSubmit }> Enter your SMS code</button>
         </div>
       </form>
       </div>
     );
-
-   //1) user enters code
-    
-    return (
-         <p></p> //Go to other component        
-    );
+     
+  
   }
 }
 

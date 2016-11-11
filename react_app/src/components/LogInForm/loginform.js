@@ -12,7 +12,6 @@ import Button from 'react-bootstrap/lib/Button';
 
 
 
-
 class LoginForm extends React.Component {
  constructor(props){
     super(props)
@@ -42,7 +41,7 @@ class LoginForm extends React.Component {
         passwordInput: newpas
         }
       }
-      
+
         console.log(form.user);
         $.ajax({
           url: "http://localhost:3000/login/", 

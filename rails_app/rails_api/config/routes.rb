@@ -6,9 +6,10 @@ resources :users
   # root to: 'site#index'
   # get '/callback/', to: 'site#parsecode'
   post '/callback/', to: 'site#parsecode'
-   
+  post '/opensession/', to: 'site#open_session'
   post '/login/', to: 'site#login'
   post '/phonecall/', to: 'site#phonecall'
+  post '/verifycode', to: 'site#verify_code'
 
 
   namespace :api do 

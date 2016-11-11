@@ -3,6 +3,8 @@
 import React from 'react';
 import './styles/app.css';
 import InfoForm from '../InfoForm/infoform.js'
+import PhoneForm from '../PhoneForm/phoneform.js';
+
 import Registration  from '../Registration/registration.js'
 import Nav from '../Nav/nav.js'
 import Footer from '../Footer/footer.js'
@@ -32,7 +34,7 @@ class App extends React.Component {
     render() {
     return (
       <div> 
-        <div className="center_page">
+        <div >
           <Nav title="Dronesmith" url='https://www.dronesmith.com' />
           <br/><br/><br/>
           <Registration />
