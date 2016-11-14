@@ -12,20 +12,6 @@ import AppBar from 'material-ui/AppBar';
 import { Link } from 'react-router';
 
 
-    // getUsers(){
-    //   var form = {user:this.state};
-    //     console.log(form.user);
-    //     $.ajax({
-    //       url: "http://localhost:3000/api/v1/users/", 
-    //       data: form,
-    //       type: "GET",
-    //       success: function(data){
-    //         console.log('success');
-    //       }        
-    //     });   
-    // }
-
-
 /**
  * @module App
  */
@@ -34,7 +20,7 @@ class App extends React.Component {
     render() {
     return (
       <div> 
-        <div >
+        <div className='center_page'>
           <Nav title="Dronesmith" url='https://www.dronesmith.com' />
           <br/><br/><br/>
           <Registration />

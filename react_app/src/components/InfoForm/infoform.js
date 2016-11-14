@@ -17,6 +17,7 @@ import ButtonGroup from 'react-bootstrap'
 import Primary from 'react-bootstrap'
 import ReactBootstrap from 'react-bootstrap'
 import jwt_decode from 'jwt-decode'
+import ButtonMain from '../Dropdown/buttonmain.js'
 
 class InfoForm extends React.Component {
  constructor(props){
@@ -37,16 +38,8 @@ class InfoForm extends React.Component {
     this.onChange= this.onChange.bind(this)
     this.onSubmit= this.onSubmit.bind(this)
     this.userSignUp= this.userSignUp.bind(this)
-    // this.renderDropdownButton= this.renderDropdownButton.bind(this)
-   // this.setSession= this.setSession.bind(this)
+}
 
-
-  } 
-      
-    // sessionOpen(){
-    //   if (this.state.session === true)
-    //   {}
-    // }
     onChange(e, name){
       var change = {};
       change[e.target.name]=e.target.value;
@@ -79,8 +72,7 @@ class InfoForm extends React.Component {
           success: function(data){
             function setSession(data){ this.setState.session(data)
            }   
-            // var _decoded = jwt_decode(userToken);
-            // console.log(_decoded);
+            
           }.bind(this),
           error: function(xhr, status, err) {
         console.error(this.props.url, status, err.toString());
@@ -88,23 +80,11 @@ class InfoForm extends React.Component {
       }); 
     }        
      
-    //     export function logInUser(credentials) {  
-    //   return function(dispatch) {
-    //     return sessionApi.login(credentials).then(response => {
-    //       sessionStorage.setItem('jwt', response.jwt);
-    //       dispatch(loginSuccess());
-    //     }).catch(error => {
-    //       throw(error);
-    //     });
-    //   };
-    // }
-    // axios.post('http://localhost:5050/callback/', {user:this.state}).then(function(response)
-    //   { console.log('saved successfully')
-    // })}
         
      onSubmit(e){
       e.preventDefault();
       this.userSignUp(this.state)
+      debugger 
       this.props.nextStep()
     };
  
@@ -115,66 +95,52 @@ render(){
     <div class="mdl-grid">
       <form onChange={this.onChange}>
                 <br/>
-                  <input type="text"
-                     ref="firstName"
-                     name= "firstName"
-                     placeholder= "firstName"
-                      /> 
+        <input type="text"
+           ref="firstName"
+           name= "firstName"
+           placeholder= "firstName"
+            /> 
 
-                     <input type="text"
-                     ref="lastName"
-                     name= "lastName"
-                     placeholder= "lastName" 
-                      /> 
+           <input type="text"
+           ref="lastName"
+           name= "lastName"
+           placeholder= "lastName" 
+            /> 
 
-                     <input type="text"
-                     ref="companyName"
-                     name= "companyName"
-                     placeholder= "companyName"
-                      /> 
+           <input type="text"
+           ref="companyName"
+           name= "companyName"
+           placeholder= "companyName"
+            /> 
 
-                     <input type="text"
-                     ref="email"
-                     name= "email"
-                     placeholder= "email" 
-                      /> 
+           <input type="text"
+           ref="email"
+           name= "email"
+           placeholder= "email" 
+            /> 
 
-                     <input type="text"
-                     ref="language"
-                     name= "language"
-                     placeholder= "language" 
-                      /> 
-                      <br/>
-                   <button id="demo-menu-lower-right"
-                            class="mdl-button mdl-js-button mdl-button--icon">
-                      <i class="material-icons">more_vert</i>
-                    </button>
+           <input type="text"
+           ref="language"
+           name= "language"
+           placeholder= "language" 
+            /> 
+            <br/>
 
-                    <ul class="mdl-menu mdl-menu--bottom-right mdl-js-menu mdl-js-ripple-effect"
-                        for="demo-menu-lower-right">
-                      <li class="mdl-menu__item">Some Action</li>
-                      <li class="mdl-menu__item">Another Action</li>
-                      <li disabled class="mdl-menu__item">Disabled Action</li>
-                      <li class="mdl-menu__item">Yet Another Action</li>
-                    </ul>  
-
-                     <input type="text"
-                     ref="passwordInput"
-                     name= "passwordInput"
-                     placeholder= "password" 
-                      /> 
-                     
-                     <input type="text"
-                     ref="passwordConfirm"
-                     name= "passwordConfirm"
-                     placeholder= "passwordConfirm" 
-                      />  
-               
-                   <br/><br/>
+           <input type="text"
+           ref="passwordInput"
+           name= "passwordInput"
+           placeholder= "password" 
+            /> 
+           
+           <input type="text"
+           ref="passwordConfirm"
+           name= "passwordConfirm"
+           placeholder= "passwordConfirm" 
+            />  
+           <br/><br/>
               <Button onClick={this.onSubmit}> Get Started</Button>
-
         </form>  
-      </div>
+     </div>
     )
 
   }

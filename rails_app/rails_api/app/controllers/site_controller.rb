@@ -17,17 +17,17 @@ include HTTParty
     render json: User.find(params[:id])
   end
 
-##METHODS TO OBTAIN USER SIGN UP INFORMATION TO SEND TO THE CLOUD SERVICE
+ ##METHODS TO OBTAIN USER SIGN UP INFORMATION TO SEND TO THE CLOUD SERVICE
    def parsecode
  	@user_params = request.request_parameters
        if @user_params
- (@user_params["passwordInput"] == @user_params["passwordConfirm"]) ? (password_confirmed = true): (password_confirmed = false)
-          if password_confirmed
-           user = User.new(email: @user_params["email"])  
+ # (@user_params["passwordInput"] == @user_params["passwordConfirm"]) ? (password_confirmed = true): (password_confirmed = false)
+          # if password_confirmed
+           user = User.new(email: @user_params["email"], password: @user_params["passwordInput"], password_confirmation: @user_params["passwordConfirm"])  
              if user.save
               @user_id = user.id
              end 
-          end
+          # end
        end 
       self.add_userId(@user_params)
    end
@@ -40,8 +40,8 @@ include HTTParty
     end
 
 #NEED TO MAKE LOG-IN VERSION OF THIS CODE
-    def make_jwt(user)
-      user = User.find_by(email: @user_params['email'])
+    def make_jwt(login_params)
+      user = User.find_by(email: login_params['email'])
       jwt = Auth.issue({user: user.id})
       render json: {jwt: jwt}
     end 
@@ -66,16 +66,28 @@ include HTTParty
   ##METHODS TO LOG-IN
     def login
       @log_inparams = request.request_parameters
-      self.log_data(@log_inparams ) 
-      render json: @log_inparams 
+      inputted_email = @log_inparams['email']
+      inputted_password = @log_inparams['passwordInput']
+      user = User.find_by(email: inputted_email)
+        if user
+          if user.authenticate(inputted_password)
+            self.make_jwt(@log_inparams)
+            self.log_data(@log_inparams)
+          else
+            render json: {error: "error"}
+          end
+        else
+          render json: {message: "error"}
+        end
     end
 
     def log_data(code) 
-      HTTParty.post("http://api.dronesmith.io/index/user/#{code['user']['email']}/password",
+
+      HTTParty.post("http://api.dronesmith.io/admin/user/#{code['email']}/password",
       {body:  {
         "password": code['passwordInput']
         },   
-      headers: {"admin-key": "ca93abe8-6f81-4bad-ab04-60a43d73e877", "Content-Type": "application/json"}}
+      headers: {"admin-key": "ca93abe8-6f81-4bad-ab04-60a43d73e877"}}
      )
     end
 
@@ -87,7 +99,6 @@ include HTTParty
     end
 
     def phone_data(code) 
-      binding.pry
       user_email = code['email']
       HTTParty.post("http://api.dronesmith.io/index/user/#{user_email}/sendsms",
         {
@@ -106,7 +117,6 @@ include HTTParty
     end
 
     def code_data(data)
-      binding.pry
       user_email = data['email']
       uri_userCode = "http://api.dronesmith.io/index/user/#{user_email}/verify"
       HTTParty.post(uri_userCode,
@@ -119,9 +129,8 @@ include HTTParty
 
   private
     def auth_params
-      params.require(:auth).permit(:email, :password)
+      params.require(:auth).permit(:email, :password, :password_confirmation)
     end
-
 
 end
 

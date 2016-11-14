@@ -33,14 +33,14 @@ class Registration extends React.Component{
     super(props)
       this.state={
         step: 1
-        };
+      };
      this.nextStep=this.nextStep.bind(this),
      this.logStep=this.logStep.bind(this),
      this.passwordStep=this.passwordStep.bind(this),
      this.previousStep=this.previousStep.bind(this)
      this.signupStep=this.signupStep.bind(this)
      this.codeStep=this.codeStep.bind(this)
-
+     this.welcomeStep=this.welcomeStep.bind(this)
   }
 
     saveValues(fields) {
@@ -54,35 +54,40 @@ class Registration extends React.Component{
   };
 
     previousStep(){
-     this.setState({
+    this.setState({
      step : this.state.step - 1
    })
- };
+  };
 
-  codeStep(){
-  this.setState({
-    step : 3
-  })
-};
+    codeStep(){
+    this.setState({
+      step : 3
+    })
+  };
 
+    welcomeStep(){
+    this.setState({
+     step : 4
+    })
+  };
 
    logStep(){
-  this.setState({
+   this.setState({
     step : 5
-  })
-};
+   })
+  };
 
    passwordStep(){
-  this.setState({
+   this.setState({
     step : 6
-  })
-};
+   })
+  };
  
- signupStep(){
-  this.setState({
+   signupStep(){
+   this.setState({
     step : 1
-  })
-};
+   })
+  };
 
 
   render() {
@@ -116,7 +121,8 @@ class Registration extends React.Component{
       case 5:
         return (
               <div>
-                <LoginForm />
+                <LoginForm  welcomeStep={this.welcomeStep}                          
+                            saveValues={this.saveValues} />
                 <button onClick={this.passwordStep}>Forgot Password</button>
                 <button onClick={this.signupStep}>Sign up for Free</button>
               </div>
