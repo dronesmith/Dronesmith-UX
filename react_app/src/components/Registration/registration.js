@@ -2,7 +2,7 @@ import React from 'react';
 import InfoForm from '../InfoForm/infoform.js';
 import Verification from '../Verification/verification.js'
 import Welcome from '../Welcome/welcome.js'
-import LoginForm from '../LoginForm/loginform.js'
+import LoginForm from '../LogInForm/loginform.js'
 import PasswordForm from '../PasswordForm/passwordform.js';
 import PhoneForm from '../PhoneForm/phoneform.js';
 

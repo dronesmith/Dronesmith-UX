@@ -7,7 +7,7 @@ import {map} from 'lodash/map';
 import axios from 'axios';
 import {nextStep} from '../Registration/registration.js'
 import { Link } from 'react-router';
-import LoginForm from '../LoginForm/loginform.js';
+import LoginForm from '../LogInForm/loginform.js';
 import ButtonToolbar from 'react-bootstrap'
 import DropdownButton from 'react-bootstrap'
 import MenuItem from 'react-bootstrap'
@@ -58,13 +58,14 @@ class InfoForm extends React.Component {
         email: this.state.email,
         passwordInput: newpas,
         passwordConfirm: newpascon,
-        language: this.state.language,
+        language: this.state[""],
         credentials: {email: this.state.email, passwordInput: newpas}
         }
       }
      this.props.saveValues(form)
 
       var userData = form.user;
+      debugger
         $.ajax({
           url: "http://localhost:3000/callback/", 
           data: userData,
@@ -79,16 +80,13 @@ class InfoForm extends React.Component {
       }.bind(this)
       }); 
     }        
-     
         
      onSubmit(e){
       e.preventDefault();
-      this.userSignUp(this.state)
-      debugger 
+      this.userSignUp(this.state) 
       this.props.nextStep()
     };
  
-
 render(){
 
     return (
@@ -119,10 +117,7 @@ render(){
            placeholder= "email" 
             /> 
 
-           <input type="text"
-           ref="language"
-           name= "language"
-           placeholder= "language" 
+           <ButtonMain      
             /> 
             <br/>
 

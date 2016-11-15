@@ -5,7 +5,7 @@ import Registration from './Registration/registration';
 import InfoForm from './InfoForm/infoform';
 import Nav from './Nav/nav';
 import Index from '../index'
-import LoginForm from './LoginForm/loginform';
+import LoginForm from './LogInForm/loginform';
 var Router = require('react-router').Router;
 import PasswordForm from './PasswordForm/passwordform';
 import PhoneForm from './PhoneForm/phoneform';
