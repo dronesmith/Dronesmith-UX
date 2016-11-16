@@ -9,7 +9,8 @@ import {nextStep} from '../Registration/registration.js'
 import PasswordForm from '../PasswordForm/passwordform.js';
 import { Link } from 'react-router';
 import Button from 'react-bootstrap/lib/Button';
-
+import RaisedButton from 'material-ui/RaisedButton';
+import TextField from 'material-ui/TextField';
 
 
 class LoginForm extends React.Component {
@@ -25,12 +26,12 @@ class LoginForm extends React.Component {
     this.onSubmit= this.onSubmit.bind(this)
     this.userLogIn= this.userLogIn.bind(this)
 
-} 
+}
 
     onChange(e, name){
       var change = {};
       change[e.target.name]=e.target.value;
-      this.setState(change);     
+      this.setState(change);
     }
 
     userLogIn(){
@@ -58,15 +59,15 @@ class LoginForm extends React.Component {
           data: userData,
           success: function(mainData) {
               localStorage.setItem('jwt', mainData["jwt"]) ;
-          }.bind(self) 
+          }.bind(self)
           ,
           error: function(e) {
           var errors = $.parseJSON(e.responseText).errors
 
               console.log('Error!', errors);
           }.bind(this),
-      }); 
-    }        
+      });
+    }
 
 
     // axios.post('http://localhost:5050/callback/', {user:this.state}).then(function(response)
@@ -78,41 +79,42 @@ class LoginForm extends React.Component {
       e.preventDefault();
       this.userLogIn(this.state)
       console.log(localStorage)
-       
+
         if ((localStorage.jwt)&&(localStorage.jwt.length > 9 )){
          this.props.welcomeStep()
          }
         else {
          alert("incorrect password or email")
-      
+
       }
      };
-      
+
   render() {
     return (
         <div>
         <form onChange={this.onChange}>
           <div className="center_page">
             <div className="row">
-             <input type="text"
-             ref="email"
-             name= "email"
-             placeholder= "Email" /> 
-             
-             <input type="text"
-             ref="passwordInput"
-             name= "passwordInput"
-             placeholder= "Choose your password" />
+            <TextField
+            id="email"
+            hintText="Email Address"
+            /><br />
+            <TextField
+            id="passwordInput"
+            hintText="Password Field"
+            floatingLabelText="Password"
+            type="password"
+            /><br />
+
             </div>
               <br/><br/>
-            <Button onClick={this.onSubmit}> Log in</Button>
+              <RaisedButton onClick={this.onSubmit} label="Log In" primary={true} />
 
           </div>
-        </form>     
+        </form>
        </div>
       )
    }
 }
 
 export default LoginForm;
-  
