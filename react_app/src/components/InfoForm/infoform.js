@@ -19,9 +19,17 @@ import ReactBootstrap from 'react-bootstrap'
 import jwt_decode from 'jwt-decode'
 import ButtonMain from '../Dropdown/buttonmain.js'
 import RaisedButton from 'material-ui/RaisedButton';
+import {
+  Step,
+  Stepper,
+  StepLabel,
+} from 'material-ui/Stepper';
+import TextField from 'material-ui/TextField';
+import SelectField from 'material-ui/SelectField';
 
 
 class InfoForm extends React.Component {
+
  constructor(props){
     super(props)
     this.state={
@@ -41,6 +49,29 @@ class InfoForm extends React.Component {
     this.onSubmit= this.onSubmit.bind(this)
     this.userSignUp= this.userSignUp.bind(this)
 }
+
+handleNext = () => {
+  const {stepIndex} = this.state;
+  this.setState({
+    stepIndex: stepIndex + 1,
+    finished: stepIndex >= 2,
+  });
+};
+
+handlePrev = () => {
+  const {stepIndex} = this.state;
+  if (stepIndex > 0) {
+    this.setState({stepIndex: stepIndex - 1});
+  }
+};
+
+state = {
+  finished: false,
+  stepIndex: 0,
+  value: 1
+};
+
+handleChange = (event, index, value) => this.setState({value});
 
     onChange(e, name){
       var change = {};
@@ -90,55 +121,71 @@ class InfoForm extends React.Component {
     };
 
 render(){
+  const {finished, stepIndex} = this.state;
 var imgSrc = require('../App/images/stepone.png');
     return (
       <div>
-      <RaisedButton label="Default" />
-      <img src={imgSrc} />
+      <Stepper activeStep={stepIndex}>
+          <Step>
+            <StepLabel>Sign Up</StepLabel>
+          </Step>
+          <Step>
+            <StepLabel>Phone Verify</StepLabel>
+          </Step>
+          <Step>
+            <StepLabel>Confirm</StepLabel>
+          </Step>
+        </Stepper>
     <div class="mdl-grid">
       <form onChange={this.onChange}>
-                <br/>
-        <input type="text"
-           ref="firstName"
-           name= "firstName"
-           placeholder= "firstName"
+        <br/>
+
+        <TextField
+          id="firstName"
+          hintText="Firstname"
+        />
+        <TextField
+          id="lastName"
+          hintText="Last Name"
+        /><br />
+        <TextField
+          id="companyName"
+          hintText="Company"
+        />
+        <TextField
+          id="email"
+          hintText="Email Address"
+        /><br />
+
+
+        <SelectField
+       floatingLabelText="Language"
+       value={this.state.value}
+       onChange={this.handleChange}
+     >
+       <MenuItem value={1} primaryText="Never" />
+       <MenuItem value={2} primaryText="Every Night" />
+       <MenuItem value={3} primaryText="Weeknights" />
+       <MenuItem value={4} primaryText="Weekends" />
+       <MenuItem value={5} primaryText="Weekly" />
+     </SelectField><br />
+
+            <TextField
+            id="passwordInput"
+            hintText="Password Field"
+            floatingLabelText="Password"
+            type="password"
             />
 
-           <input type="text"
-           ref="lastName"
-           name= "lastName"
-           placeholder= "lastName"
-            />
+            <TextField
+            id="passwordConfirm"
+            hintText="Password Field"
+            floatingLabelText="Confirm Passwod"
+            type="password"
+            /><br />
 
-           <input type="text"
-           ref="companyName"
-           name= "companyName"
-           placeholder= "companyName"
-            />
-
-           <input type="text"
-           ref="email"
-           name= "email"
-           placeholder= "email"
-            />
-
-           <ButtonMain
-            />
-            <br/>
-
-           <input type="text"
-           ref="passwordInput"
-           name= "passwordInput"
-           placeholder= "password"
-            />
-
-           <input type="text"
-           ref="passwordConfirm"
-           name= "passwordConfirm"
-           placeholder= "passwordConfirm"
-            />
            <br/><br/>
-              <Button onClick={this.onSubmit}> Get Started</Button>
+            <RaisedButton onClick={this.onSubmit} label="Get Started" primary={true} />
         </form>
      </div>
      </div>
