@@ -19,6 +19,7 @@ import ReactBootstrap from 'react-bootstrap'
 import jwt_decode from 'jwt-decode'
 import ButtonMain from '../Dropdown/buttonmain.js'
 
+
 class InfoForm extends React.Component {
  constructor(props){
     super(props)
@@ -88,8 +89,10 @@ class InfoForm extends React.Component {
     };
  
 render(){
-
+var imgSrc = require('../App/images/stepone.png');
     return (
+      <div>
+      <img src={imgSrc} />
     <div class="mdl-grid">
       <form onChange={this.onChange}>
                 <br/>
@@ -135,6 +138,7 @@ render(){
            <br/><br/>
               <Button onClick={this.onSubmit}> Get Started</Button>
         </form>  
+     </div>
      </div>
     )
 

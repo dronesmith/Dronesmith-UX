@@ -8,12 +8,14 @@ import './styles/Nav.css';
 class Nav extends React.Component {
 
     render() {
+    	var imgSrc = require('./styles/logo.png');
+
+ 
         return (
         <nav className="navbar navbar-default">
-          <div className='navbar-brand'>            
-            <a href={this.props.url}> {this.props.title} </a>
-          
-           navbar placeholder    </div> 
+          <div className='navbar-brand'>  
+           <a href='https://www.dronesmith.io'><img src={imgSrc} /></a>           
+          </div> 
         </nav>        
     );
   }
