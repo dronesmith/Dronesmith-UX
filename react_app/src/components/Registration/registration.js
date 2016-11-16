@@ -6,6 +6,11 @@ import LoginForm from '../LogInForm/loginform.js'
 import PasswordForm from '../PasswordForm/passwordform.js';
 import PhoneForm from '../PhoneForm/phoneform.js';
 import RaisedButton from 'material-ui/RaisedButton';
+import {
+  Step,
+  Stepper,
+  StepLabel,
+} from 'material-ui/Stepper';
 
 var fieldValues = {
   firstName: "",
@@ -96,6 +101,17 @@ class Registration extends React.Component{
       case 1:
         return (
               <div>
+              <Stepper activeStep={this.state.step}>
+                  <Step>
+                    <StepLabel>Sign Up</StepLabel>
+                  </Step>
+                  <Step>
+                    <StepLabel>Phone Verify</StepLabel>
+                  </Step>
+                  <Step>
+                    <StepLabel>Confirm</StepLabel>
+                  </Step>
+                </Stepper>
                 <InfoForm nextStep={this.nextStep}
                           saveValues={this.saveValues}/>
                 <RaisedButton onClick={this.logStep} label="Log In" secondary={true} />
@@ -103,18 +119,46 @@ class Registration extends React.Component{
                 )
 
       case 2:
-      return <PhoneForm fieldValues={fieldValues}
+      return (
+        <div>
+        <Stepper activeStep={this.state.step}>
+            <Step>
+              <StepLabel>Sign Up</StepLabel>
+            </Step>
+            <Step>
+              <StepLabel>Phone Verify</StepLabel>
+            </Step>
+            <Step>
+              <StepLabel>Confirm</StepLabel>
+            </Step>
+          </Stepper>
+        <PhoneForm fieldValues={fieldValues}
                           nextStep={this.nextStep}
                           previousStep={this.previousStep}
                           codeStep ={this.codeStep}
                           saveValues={this.saveValues} />
+              </div>
+                        )
 
       case 3:
-        return <Verification fieldValues={fieldValues}
+        return (
+          <div>
+          <Stepper activeStep={this.state.step}>
+              <Step>
+                <StepLabel>Sign Up</StepLabel>
+              </Step>
+              <Step>
+                <StepLabel>Phone Verify</StepLabel>
+              </Step>
+              <Step>
+                <StepLabel>Confirm</StepLabel>
+              </Step>
+            </Stepper>
+          <Verification fieldValues={fieldValues}
                             nextStep={this.nextStep}
                             previousStep={this.previousStep}
                             welcome = {this.welcome}
-                            saveValues={this.saveValues} />
+                            saveValues={this.saveValues} /></div>)
       case 4:
         return <Welcome />
 

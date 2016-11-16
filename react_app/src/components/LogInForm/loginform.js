@@ -10,6 +10,7 @@ import PasswordForm from '../PasswordForm/passwordform.js';
 import { Link } from 'react-router';
 import Button from 'react-bootstrap/lib/Button';
 import RaisedButton from 'material-ui/RaisedButton';
+import TextField from 'material-ui/TextField';
 
 
 class LoginForm extends React.Component {
@@ -94,18 +95,20 @@ class LoginForm extends React.Component {
         <form onChange={this.onChange}>
           <div className="center_page">
             <div className="row">
-             <input type="text"
-             ref="email"
-             name= "email"
-             placeholder= "Email" />
+            <TextField
+            id="email"
+            hintText="Email Address"
+            /><br />
+            <TextField
+            id="passwordInput"
+            hintText="Password Field"
+            floatingLabelText="Password"
+            type="password"
+            /><br />
 
-             <input type="text"
-             ref="passwordInput"
-             name= "passwordInput"
-             placeholder= "Choose your password" />
             </div>
               <br/><br/>
-              <RaisedButton onClick={this.onSubmit} label="Log In" secondary={true} />
+              <RaisedButton onClick={this.onSubmit} label="Log In" primary={true} />
 
           </div>
         </form>

@@ -67,7 +67,6 @@ handlePrev = () => {
 
 state = {
   finished: false,
-  stepIndex: 0,
   value: 1
 };
 
@@ -125,17 +124,6 @@ render(){
 var imgSrc = require('../App/images/stepone.png');
     return (
       <div>
-      <Stepper activeStep={stepIndex}>
-          <Step>
-            <StepLabel>Sign Up</StepLabel>
-          </Step>
-          <Step>
-            <StepLabel>Phone Verify</StepLabel>
-          </Step>
-          <Step>
-            <StepLabel>Confirm</StepLabel>
-          </Step>
-        </Stepper>
     <div class="mdl-grid">
       <form onChange={this.onChange}>
         <br/>
