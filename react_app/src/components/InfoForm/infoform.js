@@ -18,6 +18,7 @@ import Primary from 'react-bootstrap'
 import ReactBootstrap from 'react-bootstrap'
 import jwt_decode from 'jwt-decode'
 import ButtonMain from '../Dropdown/buttonmain.js'
+import RaisedButton from 'material-ui/RaisedButton';
 
 
 class InfoForm extends React.Component {
@@ -44,9 +45,9 @@ class InfoForm extends React.Component {
     onChange(e, name){
       var change = {};
       change[e.target.name]=e.target.value;
-      this.setState(change);     
+      this.setState(change);
     }
-     //must refactor signup code and seperate functions 
+     //must refactor signup code and seperate functions
     userSignUp(){
       var self = this
       const newpas= window.btoa(self.state.passwordInput)
@@ -68,30 +69,31 @@ class InfoForm extends React.Component {
       var userData = form.user;
       debugger
         $.ajax({
-          url: "http://localhost:3000/callback/", 
+          url: "http://localhost:3000/callback/",
           data: userData,
           type: "POST",
           success: function(data){
             function setSession(data){ this.setState.session(data)
-           }   
-            
+           }
+
           }.bind(this),
           error: function(xhr, status, err) {
         console.error(this.props.url, status, err.toString());
       }.bind(this)
-      }); 
-    }        
-        
+      });
+    }
+
      onSubmit(e){
       e.preventDefault();
-      this.userSignUp(this.state) 
+      this.userSignUp(this.state)
       this.props.nextStep()
     };
- 
+
 render(){
 var imgSrc = require('../App/images/stepone.png');
     return (
       <div>
+      <RaisedButton label="Default" />
       <img src={imgSrc} />
     <div class="mdl-grid">
       <form onChange={this.onChange}>
@@ -100,44 +102,44 @@ var imgSrc = require('../App/images/stepone.png');
            ref="firstName"
            name= "firstName"
            placeholder= "firstName"
-            /> 
+            />
 
            <input type="text"
            ref="lastName"
            name= "lastName"
-           placeholder= "lastName" 
-            /> 
+           placeholder= "lastName"
+            />
 
            <input type="text"
            ref="companyName"
            name= "companyName"
            placeholder= "companyName"
-            /> 
+            />
 
            <input type="text"
            ref="email"
            name= "email"
-           placeholder= "email" 
-            /> 
+           placeholder= "email"
+            />
 
-           <ButtonMain      
-            /> 
+           <ButtonMain
+            />
             <br/>
 
            <input type="text"
            ref="passwordInput"
            name= "passwordInput"
-           placeholder= "password" 
-            /> 
-           
+           placeholder= "password"
+            />
+
            <input type="text"
            ref="passwordConfirm"
            name= "passwordConfirm"
-           placeholder= "passwordConfirm" 
-            />  
+           placeholder= "passwordConfirm"
+            />
            <br/><br/>
               <Button onClick={this.onSubmit}> Get Started</Button>
-        </form>  
+        </form>
      </div>
      </div>
     )

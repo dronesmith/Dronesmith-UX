@@ -1,7 +1,8 @@
 'use strict';
 
 import React from 'react';
-import './styles/app.css';
+// import './styles/app.css';
+import MuiThemeProvider from 'material-ui/styles/MuiThemeProvider';
 import InfoForm from '../InfoForm/infoform.js'
 import PhoneForm from '../PhoneForm/phoneform.js';
 
@@ -19,7 +20,8 @@ class App extends React.Component {
 
     render() {
     return (
-      <div> 
+      <MuiThemeProvider>
+      <div>
         <div className='center_page'>
           <Nav title="Dronesmith" url='https://www.dronesmith.com' />
           <br/><br/><br/>
@@ -28,6 +30,7 @@ class App extends React.Component {
           <Footer />
         </div>
       </div>
+      </MuiThemeProvider>
 
     );
   }
