@@ -10,7 +10,6 @@ import { Link } from 'react-router';
 import LoginForm from '../LogInForm/loginform.js';
 import ButtonToolbar from 'react-bootstrap'
 import DropdownButton from 'react-bootstrap'
-import MenuItem from 'react-bootstrap'
 import Select from 'react-select';
 import Button from 'react-bootstrap/lib/Button';
 import ButtonGroup from 'react-bootstrap'
@@ -28,9 +27,10 @@ import TextField from 'material-ui/TextField';
 import SelectField from 'material-ui/SelectField';
 
 
+
 class InfoForm extends React.Component {
 
- constructor(props){
+  constructor(props){
     super(props)
     this.state={
       firstName: "",
@@ -70,11 +70,11 @@ state = {
   value: 1
 };
 
-handleChange = (event, index, value) => this.setState({value});
+handleChange = (event, index, value) => this.setState({language: value});
 
     onChange(e, name){
       var change = {};
-      change[e.target.name]=e.target.value;
+      change[e.target.id]=e.target.value;
       this.setState(change);
     }
      //must refactor signup code and seperate functions
@@ -121,7 +121,6 @@ handleChange = (event, index, value) => this.setState({value});
 
 render(){
   const {finished, stepIndex} = this.state;
-var imgSrc = require('../App/images/stepone.png');
     return (
       <div>
     <div class="mdl-grid">
@@ -130,7 +129,7 @@ var imgSrc = require('../App/images/stepone.png');
 
         <TextField
           id="firstName"
-          hintText="Firstname"
+          hintText="First Name"
         />
         <TextField
           id="lastName"
@@ -144,20 +143,7 @@ var imgSrc = require('../App/images/stepone.png');
           id="email"
           hintText="Email Address"
         /><br />
-
-
-        <SelectField
-       floatingLabelText="Language"
-       value={this.state.value}
-       onChange={this.handleChange}
-     >
-       <MenuItem value={1} primaryText="Never" />
-       <MenuItem value={2} primaryText="Every Night" />
-       <MenuItem value={3} primaryText="Weeknights" />
-       <MenuItem value={4} primaryText="Weekends" />
-       <MenuItem value={5} primaryText="Weekly" />
-     </SelectField><br />
-
+       
             <TextField
             id="passwordInput"
             hintText="Password Field"
@@ -168,11 +154,14 @@ var imgSrc = require('../App/images/stepone.png');
             <TextField
             id="passwordConfirm"
             hintText="Password Field"
-            floatingLabelText="Confirm Passwod"
+            floatingLabelText="Confirm Password"
             type="password"
             /><br />
 
            <br/><br/>
+                   <ButtonMain language={this.props.selectedLang}/>
+           <br/><br/>
+
             <RaisedButton onClick={this.onSubmit} label="Get Started" primary={true} />
         </form>
      </div>

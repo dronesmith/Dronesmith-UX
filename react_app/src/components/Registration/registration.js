@@ -114,7 +114,8 @@ class Registration extends React.Component{
                 </Stepper>
                 <InfoForm nextStep={this.nextStep}
                           saveValues={this.saveValues}/>
-                <RaisedButton onClick={this.logStep} label="Log In" secondary={true} />
+                          <br/>
+                <RaisedButton primary={true} onClick={this.logStep} label="Log In" secondary={true} />
               </div>
                 )
 

@@ -1,7 +1,6 @@
 import React from 'react';
-import './dropdown_style.css'
-
-
+import DropDownMenu from 'material-ui/DropDownMenu';
+import MenuItem from 'material-ui/MenuItem';
 
 class ButtonMain extends React.Component{
     constructor(props){
@@ -41,5 +40,4 @@ class ButtonMain extends React.Component{
   }
 }
   
-  export default ButtonMain
-
+export default ButtonMain

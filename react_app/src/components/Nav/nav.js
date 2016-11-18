@@ -8,56 +8,55 @@ import FlatButton from 'material-ui/FlatButton';
 import Toggle from 'material-ui/Toggle';
 import MoreVertIcon from 'material-ui/svg-icons/navigation/more-vert';
 import NavigationClose from 'material-ui/svg-icons/navigation/close';
+ 
 
-class Login extends React.Component {
-  static muiName = 'FlatButton';
+// class Login extends React.Component {
+//   static muiName = 'FlatButton';
 
-  render() {
-    return (
-      <FlatButton {...this.props} label="Login" />
-    );
-  }
-}
+//   render() {
+//     return (
+//       <FlatButton {...this.props} label="Login" />
+//     );
+//   }
+// }
 
 
-const Logged = (props) => (
-  <IconMenu
-    {...props}
-    iconButtonElement={
-      <IconButton><MoreVertIcon /></IconButton>
-    }
-    targetOrigin={{horizontal: 'right', vertical: 'top'}}
-    anchorOrigin={{horizontal: 'right', vertical: 'top'}}
-  >
-    <MenuItem primaryText="Refresh" />
-    <MenuItem primaryText="Help" />
-    <MenuItem primaryText="Sign out" />
-  </IconMenu>
-);
+// const Logged = (props) => (
+//   <IconMenu
+//     {...props}
+//     iconButtonElement={
+//       <IconButton><MoreVertIcon /></IconButton>
+//     }
+//     targetOrigin={{horizontal: 'right', vertical: 'top'}}
+//     anchorOrigin={{horizontal: 'right', vertical: 'top'}}
+//   >
+//     <MenuItem primaryText="Refresh" />
+//     <MenuItem primaryText="Help" />
+//     <MenuItem primaryText="Sign out" />
+//   </IconMenu>
+// );
 
-Logged.muiName = 'IconMenu';
+// Logged.muiName = 'IconMenu';
 
 /**
  * @module Nav
  */
 class Nav extends React.Component {
-  state = {
-    logged: false,
-  };
+  // state = {
+  //   logged: false,
+  // };
 
-  handleChange = (event, logged) => {
-    this.setState({logged: logged});
-  };
+  // handleChange = (event, logged) => {
+  //   this.setState({logged: logged});
+  // };
 
     render() {
-    	var imgSrc = require('./styles/logo.png');
-
-
-        return (
-          <AppBar
-            title="Dronesmith"
-            iconElementRight={this.state.logged ? <Logged /> : <Login />}
-          />
+      var imgUrl=require('../Nav/styles/white_logo.png');
+      return (
+        <AppBar
+           iconElementLeft={<img src={imgUrl} />}
+           // iconElementLeft={<img src={imgUrl}/>} 
+        />
     );
   }
 }
