@@ -101,7 +101,7 @@ class Registration extends React.Component{
       case 1:
         return (
               <div>
-              <Stepper activeStep={this.state.step}>
+              <Stepper activeStep={(this.state.step)-1}>
                   <Step>
                     <StepLabel>Sign Up</StepLabel>
                   </Step>
@@ -122,7 +122,7 @@ class Registration extends React.Component{
       case 2:
       return (
         <div>
-        <Stepper activeStep={this.state.step}>
+        <Stepper activeStep={(this.state.step)-1}>
             <Step>
               <StepLabel>Sign Up</StepLabel>
             </Step>
@@ -144,7 +144,7 @@ class Registration extends React.Component{
       case 3:
         return (
           <div>
-          <Stepper activeStep={this.state.step}>
+          <Stepper activeStep={(this.state.step)-1}>
               <Step>
                 <StepLabel>Sign Up</StepLabel>
               </Step>
