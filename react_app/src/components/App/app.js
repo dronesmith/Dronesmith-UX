@@ -19,17 +19,19 @@ import { Link } from 'react-router';
 class App extends React.Component {
 
     render() {
+      
+
     return (
       <MuiThemeProvider>
-      <div>
-        <div className='center_page'>
-          <Nav title="Dronesmith" url='https://www.dronesmith.com' />
-          <br/><br/><br/>
-          <Registration />
-          <br/><br/><br/>
-          <Footer />
+        <div>
+          <div className='center_page'>
+            <Nav title="Dronesmith" url='https://www.dronesmith.com' />
+            <br/><br/><br/>
+            <Registration />
+            <br/><br/><br/>
+            <Footer />
+          </div>
         </div>
-      </div>
       </MuiThemeProvider>
 
     );

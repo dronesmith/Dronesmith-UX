@@ -14,6 +14,7 @@ import routes from './components/routes'
 import rootReducer from './reducers/rootReducer'
 import thunk from 'redux-thunk'
 
+
 // import injectTapEventPlugin from 'react-tap-event-plugin';
 //
 // // Needed for onTouchTap
