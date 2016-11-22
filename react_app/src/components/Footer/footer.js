@@ -14,8 +14,9 @@ class Footer extends React.Component {
 
         return (
           <div className='footer_page'>
-            2016, Dronesmith Technologies. All Rights Reserved. 
-             <a href='www.dronesmith.com/privacy'>Privacy Policy</a>
+            2016 Dronesmith Technologies. All Rights Reserved. 
+             <div><a href='www.dronesmith.com/privacy'>Privacy Policy</a>
+              </div>
              <a href='www.dronesmith.com/service'>Terms of Service</a>
           </div>
           );

@@ -14,28 +14,28 @@ class ButtonMain extends React.Component{
   };
 
     handleChange(e){
-      debugger
+      
     this.setState({selectedLang:e.target.value});
-    debugger
+    
   };
 
   render() {
     var message='You selected '+this.state.selectedLang;
 
     return (
-      <div>
-      <select 
-        value={this.state.selectedLang} 
-        onChange={this.handleChange} 
-      >
-        <option value="Ruby">Ruby</option>
-        <option value="JavaScript">JavaScript</option>
-        <option value="Python">Python</option>
-        <option value="Java">Java</option>
+            <div>
+            <select 
+              value={this.state.selectedLang} 
+              onChange={this.handleChange} 
+            >
+              <option value="Ruby">Ruby</option>
+              <option value="JavaScript">JavaScript</option>
+              <option value="Python">Python</option>
+              <option value="Java">Java</option>
 
-      </select>
-        <p>{message}</p>
-      </div>        
+            </select>
+              <p>{message}</p>
+            </div>        
     );
   }
 }

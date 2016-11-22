@@ -16,7 +16,7 @@
     "react-addons-test-utils": "^0.14.8",
     "react-bootstrap": "^0.30.6",
     "react-dom": "^15.3.2",
-    "react-dropdown": "^1.1.0",
+    "react-dropdown": "^1.2.0",
     "react-image": "^0.1.0",
     "react-redux": "^4.4.5",
     "react-router": "^2.0.1",

@@ -8,7 +8,8 @@ import FlatButton from 'material-ui/FlatButton';
 import Toggle from 'material-ui/Toggle';
 import MoreVertIcon from 'material-ui/svg-icons/navigation/more-vert';
 import NavigationClose from 'material-ui/svg-icons/navigation/close';
- 
+import './styles/Nav.css'
+import {indigo900} from 'material-ui/styles/colors';
 
 // class Login extends React.Component {
 //   static muiName = 'FlatButton';
@@ -45,20 +46,19 @@ class Nav extends React.Component {
   // state = {
   //   logged: false,
   // };
-
   // handleChange = (event, logged) => {
   //   this.setState({logged: logged});
   // };
-
     render() {
       var imgUrl=require('../Nav/styles/white_logo.png');
       return (
-        <AppBar
-           iconElementLeft={<img src={imgUrl} />}
+        <AppBar 
+           style={{backgroundColor: indigo900}}  
+           class="nav_bar"
+           iconElementLeft={<img src={imgUrl} url={this.props.url} /> }   
            // iconElementLeft={<img src={imgUrl}/>} 
         />
     );
   }
 }
-
 export default Nav;

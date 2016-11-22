@@ -25,6 +25,7 @@ import {
 } from 'material-ui/Stepper';
 import TextField from 'material-ui/TextField';
 import SelectField from 'material-ui/SelectField';
+import {indigo900} from 'material-ui/styles/colors';
 
 
 
@@ -162,7 +163,7 @@ render(){
                    <ButtonMain language={this.props.selectedLang}/>
            <br/><br/>
 
-            <RaisedButton onClick={this.onSubmit} label="Get Started" primary={true} />
+            <RaisedButton onClick={this.onSubmit} label="Get Started" primary={true} style={{backgroundColor: indigo900}} />
         </form>
      </div>
      </div>

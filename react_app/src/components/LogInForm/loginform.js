@@ -109,7 +109,6 @@ class LoginForm extends React.Component {
             </div>
               <br/><br/>
               <RaisedButton onClick={this.onSubmit} label="Log In" primary={true} />
-
           </div>
         </form>
        </div>
