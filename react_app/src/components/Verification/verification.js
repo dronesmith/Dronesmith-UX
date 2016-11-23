@@ -25,8 +25,9 @@ class Verification extends React.Component {
   submitCode(){
       
      this.props.fieldValues.user['code']=this.state.code
+    
     $.ajax({
-        url: "http://localhost:3000/verifycode/", 
+        url: "http://localhost:5050/verifycode/", 
         data: this.props.fieldValues.user,
         type: "POST",
         success: function(data){
@@ -38,7 +39,6 @@ class Verification extends React.Component {
     onSubmit(e){
       e.preventDefault();
       this.submitCode(this.props.state)
-      debugger
       this.props.nextStep()
     };
 
@@ -50,8 +50,8 @@ class Verification extends React.Component {
       <form onChange={this.onChange}>
         <div className="center_page">
           <input type="text"
-            name="phoneNumber"
-            placeholder= "Enter your Phone Number" />  
+            name="code"
+            placeholder= "Enter your SMS code" />  
           <button onClick={ this.onSubmit }> Enter your SMS code</button>
         </div>
       </form>

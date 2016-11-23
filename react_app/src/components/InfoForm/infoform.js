@@ -98,13 +98,14 @@ handleChange = (event, index, value) => this.setState({language: value});
      this.props.saveValues(form)
 
       var userData = form.user;
-      debugger
+      
         $.ajax({
-          url: "http://localhost:3000/callback/",
+          url: "http://localhost:5050/callback/",
           data: userData,
           type: "POST",
           success: function(data){
             function setSession(data){ this.setState.session(data)
+              console.log(this.state)
            }
 
           }.bind(this),

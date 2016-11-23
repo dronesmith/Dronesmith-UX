@@ -6,7 +6,7 @@ class User < ApplicationRecord
 
    has_secure_token
    has_secure_password
-   validates :password, presence: true
+   
 
   # after_create :update_access_token!  
   # validates :token, uniqueness: true

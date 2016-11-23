@@ -24,9 +24,10 @@ include HTTParty
          user = User.new(email: @user_params["email"], password: @user_params["passwordInput"], password_confirmation: @user_params["passwordConfirm"])  
            if user.save
              @user_id = user.id
+             self.add_userId(@user_params)
+             binding.pry
            end 
-       end 
-     self.add_userId(@user_params) 
+       end    
    end
 
   def add_userId(user_params) 
@@ -42,7 +43,6 @@ include HTTParty
   end 
 
   def clouddata(code) 
-    @user = User.find_by(email: code['email'])
     response = HTTParty.post("http://api.dronesmith.io/admin/user",
       {body: {    
       "email": code["email"],
@@ -56,8 +56,7 @@ include HTTParty
       },   
       headers: {"admin-key": ENV['DRONESMITH_ADMIN_KEY']} }
     )  
-   @user.apikey = response['apiKey']
-   @user.save
+   @user_api_key = response['apiKey'] 
    @user_isVerified = response["isVerified"]
   end
 
@@ -97,7 +96,17 @@ include HTTParty
 
     def phone_data(code) 
       user_email = code['email']
-      response=HTTParty.post("https://api.authy.com/protected/json/phones/verification/start?api_key=#{ENV['TWILIO_AUTH_TOKEN']}&via=sms&country_code=#{code['countryCode']}&phone_number=#{code['phoneNumber']}&locale=en")
+      binding.pry
+# response= HTTParty.post("https://api.authy.com/protected/json/phones/verification/start?api_key=SecX8QnzIA3CgeEUN5JBwBFGTxa2M5Rv&via=sms&country_code=1&phone_number=321-360-6283&locale=en
+     response= HTTParty.post("http://api.dronesmith.io/index/user/#{user_email}/sendsms",
+        {
+          body: {
+            "phone": code['phoneNumber'],
+            "country": code['countryCode']
+            },
+          headers: {"admin-key": ENV['DRONESMITH_ADMIN_KEY']}
+        })
+
     end
 
    #Verify User code  
@@ -108,24 +117,28 @@ include HTTParty
 
     def code_data(data)
       user_email = data['email']
-      uri_userCode = "https://api.authy.com/protected/json/phones/verification/check?api_key=#{ENV['TWILIO_AUTH_TOKEN']}&country_code=#{data['countryCode']}&phone_number=#{data['phoneNumber']}&verification_code=#{data['code']}"
-      response= HTTParty.get(uri_userCode)
-      if response["success"]
-       self.send_email(data)
-      end
+      binding.pry
+      uri_userCode = "http://api.dronesmith.io/index/user/#{user_email}/verify"
+      response= HTTParty.post(uri_userCode,
+      {body:  {
+        "code": data['code']
+        },   
+      headers: {"admin-key": ENV['DRONESMITH_ADMIN_KEY'] }}
+     )
+      self.send_email(data)
     end
 
     ##SEND EMAIL TO USER
     def send_email(user_info)
       @user = User.find_by(email: user_info['email']) 
-      SiteMailer.mail_signup_email(@user).deliver
-
-      # redirect_to(@user, :notice => 'User created')
+       binding.pry    
+      UserNotifier.send_signup_email(@user).deliver
+      redirect_to(@user, :notice => 'User created')
     end
 
   private
     def auth_params
-      params.require(:auth).permit(:email, :apikey, :password, :password_confirmation)
+      params.require(:auth).permit(:email, :password, :password_confirmation)
     end
 
 end

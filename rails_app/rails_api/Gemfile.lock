@@ -151,6 +151,8 @@ GEM
       http-cookie (>= 1.0.2, < 2.0)
       mime-types (>= 1.16, < 3.0)
       netrc (~> 0.7)
+    sendgrid (1.2.4)
+      json
     slop (3.6.0)
     spring (2.0.0)
       activesupport (>= 4.2)
@@ -201,6 +203,7 @@ DEPENDENCIES
   react-rails
   responders
   rest-client (~> 1.8)
+  sendgrid
   spring
   spring-watcher-listen (~> 2.0.0)
   sqlite3

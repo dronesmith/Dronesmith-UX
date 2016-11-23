@@ -6,7 +6,7 @@ class ButtonMain extends React.Component{
     constructor(props){
       super(props)
       this.state ={
-       selectedLang: 'Ruby'
+       selectedLang: 'ruby'
       };
 
       this.handleChange=this.handleChange.bind(this)
@@ -28,10 +28,12 @@ class ButtonMain extends React.Component{
               value={this.state.selectedLang} 
               onChange={this.handleChange} 
             >
-              <option value="Ruby">Ruby</option>
-              <option value="JavaScript">JavaScript</option>
-              <option value="Python">Python</option>
-              <option value="Java">Java</option>
+              <option value="ruby">Ruby</option>
+              <option value="javascript">JavaScript</option>
+              <option value="python">Python</option>
+              <option value="java">Java</option>
+              <option value="php">PHP</option>
+              <option value="golang">GoLang</option>
 
             </select>
               <p>{message}</p>

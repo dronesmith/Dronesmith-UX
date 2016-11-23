@@ -28,7 +28,7 @@ class PhoneForm extends React.Component {
     this.props.fieldValues.user['countryCode']=this.state.countryCode
 
     $.ajax({
-        url: "http://localhost:3000/phonecall/", 
+        url: "http://localhost:5050/phonecall/", 
         data: this.props.fieldValues.user,
         type: "POST",
         success: function(data){
