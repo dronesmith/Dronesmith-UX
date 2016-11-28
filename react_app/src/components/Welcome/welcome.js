@@ -7,7 +7,9 @@ class Welcome extends React.Component {
     return (
       
           <div className="center_page">
-            <h1 className="welcome_page">WELCOME </h1>    
+            <h1 className="welcome_page">WELCOME </h1>  
+            <h4>Your API key was emailed to you </h4>    
+  
           </div>
       
     );

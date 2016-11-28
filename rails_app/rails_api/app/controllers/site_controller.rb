@@ -26,13 +26,12 @@ include HTTParty
              @user_id = user.id
            end 
        end 
+        @user_params["id"]= @user_id
      self.add_userId(@user_params) 
    end
 
-  def add_userId(user_params) 
-     @user_params["id"]= @user_id
+  def add_userId(user_params)
      self.clouddata(@user_params) 
-     self.make_jwt(@user_params)
   end
 
   def make_jwt(login_params)
@@ -96,7 +95,6 @@ include HTTParty
     end
 
     def phone_data(code) 
-      user_email = code['email']
       response=HTTParty.post("https://api.authy.com/protected/json/phones/verification/start?api_key=#{ENV['TWILIO_AUTH_TOKEN']}&via=sms&country_code=#{code['countryCode']}&phone_number=#{code['phoneNumber']}&locale=en")
     end
 
@@ -107,12 +105,12 @@ include HTTParty
     end
 
     def code_data(data)
-      user_email = data['email']
       uri_userCode = "https://api.authy.com/protected/json/phones/verification/check?api_key=#{ENV['TWILIO_AUTH_TOKEN']}&country_code=#{data['countryCode']}&phone_number=#{data['phoneNumber']}&verification_code=#{data['code']}"
       response= HTTParty.get(uri_userCode)
       if response["success"]
        self.send_email(data)
       end
+
     end
 
     ##SEND EMAIL TO USER

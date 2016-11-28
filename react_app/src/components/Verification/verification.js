@@ -1,6 +1,8 @@
 import React from 'react';
 import '../App/styles/app.css';
 var $ = require('jquery');
+import RaisedButton from 'material-ui/RaisedButton';
+
 
 
 class Verification extends React.Component {
@@ -25,7 +27,7 @@ class Verification extends React.Component {
   submitCode(){
       
      this.props.fieldValues.user['code']=this.state.code
-    
+    debugger
     $.ajax({
         url: "http://localhost:5050/verifycode/", 
         data: this.props.fieldValues.user,
@@ -52,7 +54,7 @@ class Verification extends React.Component {
           <input type="text"
             name="code"
             placeholder= "Enter your SMS code" />  
-          <button onClick={ this.onSubmit }> Enter your SMS code</button>
+          <RaisedButton onClick={ this.onSubmit }> Enter your SMS code</RaisedButton>
         </div>
       </form>
       </div>

@@ -6,17 +6,16 @@ class ButtonMain extends React.Component{
     constructor(props){
       super(props)
       this.state ={
-       selectedLang: 'ruby'
+       selectedLang: ""
       };
 
       this.handleChange=this.handleChange.bind(this)
       
   };
+    
 
     handleChange(e){
-      
-    this.setState({selectedLang:e.target.value});
-    
+    this.setState({selectedLang: e.target.value});
   };
 
   render() {
@@ -24,19 +23,21 @@ class ButtonMain extends React.Component{
 
     return (
             <div>
+             <div>Please select a language:</div>
             <select 
               value={this.state.selectedLang} 
               onChange={this.handleChange} 
             >
-              <option value="ruby">Ruby</option>
+              <option value="">Select</option>
               <option value="javascript">JavaScript</option>
+              <option value="ruby">Ruby</option>
               <option value="python">Python</option>
               <option value="java">Java</option>
               <option value="php">PHP</option>
               <option value="golang">GoLang</option>
 
             </select>
-              <p>{message}</p>
+              
             </div>        
     );
   }

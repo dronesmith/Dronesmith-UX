@@ -51,6 +51,8 @@ class InfoForm extends React.Component {
     this.userSignUp= this.userSignUp.bind(this)
 }
 
+
+
 handleNext = () => {
   const {stepIndex} = this.state;
   this.setState({
@@ -164,7 +166,7 @@ render(){
                    <ButtonMain language={this.props.selectedLang}/>
            <br/><br/>
 
-            <RaisedButton onClick={this.onSubmit} label="Get Started" primary={true} style={{backgroundColor: indigo900}} />
+            <RaisedButton onClick={this.onSubmit} label="Get Started" primary={true}  />
         </form>
      </div>
      </div>

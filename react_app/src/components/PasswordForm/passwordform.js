@@ -7,6 +7,7 @@ import axios from 'axios';
 import InfoForm from '../InfoForm/infoform.js';
 import {nextStep} from '../Registration/registration.js'
 import { Link } from 'react-router';
+import RaisedButton from 'material-ui/RaisedButton';
 
 
 
@@ -70,7 +71,7 @@ class PasswordForm extends React.Component {
                placeholder= "Your Email" /> 
             </div>
               <br/><br/>
-                <button onClick={this.onSubmit}> Enter your Email </button>
+                <RaisedButton onClick={this.onSubmit} primary={true}> Enter your Email </RaisedButton>
            </div>
         </form>     
       </div>

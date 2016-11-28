@@ -2,6 +2,7 @@ import React from 'react';
 import '../App/styles/app.css';
 var $ = require('jquery');
 import Registration from '../Registration/registration.js';
+import RaisedButton from 'material-ui/RaisedButton';
 
 
 class PhoneForm extends React.Component {
@@ -52,11 +53,11 @@ class PhoneForm extends React.Component {
           <div className="center_page">
             <input type="text"
               name="countryCode"
-              placeholder= "countryCode" />  
+              placeholder= "Enter your country code" />  
             <input type="text"
             name="phoneNumber"
             placeholder= "Enter your Phone Number" />   
-            <button onClick={ this.onSubmit }> Verify your phone via SMS</button>
+            <RaisedButton onClick={ this.onSubmit } > Verify via SMS</RaisedButton>
           </div>
         </form>
       </div>
