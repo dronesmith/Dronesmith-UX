@@ -2,6 +2,8 @@ require 'rest-client'
 require 'pry'
 require 'json'
 require 'httparty'
+require 'base64'
+
 
 
 class SiteController < ApplicationController
@@ -73,13 +75,12 @@ include HTTParty
           else
             render json: {error: "error"}
           end
-        else
-          render json: {message: "error"}
+ 
         end
     end
 
     def log_data(code) 
-      HTTParty.post("http://api.dronesmith.io/admin/user/#{code['email']}/password",
+     response =HTTParty.post("http://api.dronesmith.io/admin/user/#{code['email']}/password",
       {body:  {
         "password": code['passwordInput']
         },   
@@ -113,13 +114,48 @@ include HTTParty
 
     end
 
+    #forgot password
+    def forgot_password
+      @password_params = request.request_parameters
+      self.update_password(@password_params)
+      self.send_password(@password_params)
+    end
+
+
+    def update_password(state)
+      user_email = state['email']
+      # random_num = Random.new.rand(101..200) 
+      # newpass = "Password" + random_num.to_s
+      user_password = state['newPassword']
+      encoded_password= Base64.encode64(user_password)
+      uri_userCode = "http://api.dronesmith.io/index/user/#{user_email}/"
+      response= HTTParty.put(uri_userCode,
+      {body:  {
+        password: encoded_password,
+        isVerifiedEmail: false
+        },   
+      headers: {"admin-key": ENV['DRONESMITH_ADMIN_KEY']}}
+     )
+
+
+    end
+
     ##SEND EMAIL TO USER
     def send_email(user_info)
       @user = User.find_by(email: user_info['email']) 
       SiteMailer.mail_signup_email(@user).deliver
-
       # redirect_to(@user, :notice => 'User created')
     end
+
+    ##send newpassword to user
+    def send_password(state)
+      @user = User.find_by(email: state['email'])
+       @user.password = state['newpassword']
+       @user.save
+      SiteMailer.mail_password_email(@user).deliver
+      # redirect_to(@user, :notice => 'User created')
+    end
+
 
   private
     def auth_params

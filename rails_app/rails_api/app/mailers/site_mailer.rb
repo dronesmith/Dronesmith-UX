@@ -4,10 +4,17 @@ class SiteMailer < ApplicationMailer
   default :from => 'cliff@dronesmith.io'
 
   # send a signup email to the user, pass in the user object that   contains the user's email address
+  def mail_password_email(user)
+    @user = user
+    mail( :to => @user.email,
+    :subject => 'Your new password' )
+  end
+
   def mail_signup_email(user)
     @user = user
     mail( :to => @user.email,
     :subject => 'Thanks for signing up for our amazing app' )
   end
+
 
 end

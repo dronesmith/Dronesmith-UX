@@ -3,6 +3,7 @@ import '../App/styles/app.css';
 var $ = require('jquery');
 import Registration from '../Registration/registration.js';
 import RaisedButton from 'material-ui/RaisedButton';
+import TextField from 'material-ui/TextField';
 
 
 class PhoneForm extends React.Component {
@@ -48,7 +49,6 @@ class PhoneForm extends React.Component {
    
    //1) user puts in phone number. 2) user clicks on button to send them to other component  
     return (
-      <div>
         <form onChange={this.onChange}>
           <div className="center_page">
             <input type="text"
@@ -60,10 +60,9 @@ class PhoneForm extends React.Component {
             <RaisedButton onClick={ this.onSubmit } > Verify via SMS</RaisedButton>
           </div>
         </form>
-      </div>
     );
    //1) user enters code
-  }
+   }
 }
 
 export default PhoneForm;

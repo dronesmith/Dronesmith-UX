@@ -121,6 +121,7 @@ handleChange = (event, index, value) => this.setState({language: value});
       e.preventDefault();
       this.userSignUp(this.state)
       this.props.nextStep()
+      alert("Hello - Please check your email for your API key!")
     };
 
 render(){

@@ -38,7 +38,7 @@ class Registration extends React.Component{
     super(props)
       this.state={
         step: 1
-      };
+      }
      this.nextStep=this.nextStep.bind(this),
      this.logStep=this.logStep.bind(this),
      this.passwordStep=this.passwordStep.bind(this),

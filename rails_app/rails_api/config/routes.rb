@@ -10,6 +10,7 @@ resources :users
   post '/login/', to: 'site#login'
   post '/phonecall/', to: 'site#phonecall'
   post '/verifycode', to: 'site#verify_code'
+  put '/forgotpassword', to: 'site#forgot_password'
 
 
   namespace :api do 

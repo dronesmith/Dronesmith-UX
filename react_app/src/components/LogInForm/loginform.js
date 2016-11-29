@@ -28,13 +28,15 @@ class LoginForm extends React.Component {
 
 }
 
-    onChange(e, name){
+    onChange(e, id){
+      
       var change = {};
-      change[e.target.name]=e.target.value;
+      change[e.target.id]=e.target.value;
       this.setState(change);
     }
 
     userLogIn(){
+      
       var self = this
       const newpassword= window.btoa(self.state.passwordInput)
       var form = {
@@ -47,7 +49,6 @@ class LoginForm extends React.Component {
 
       var userData = form.user;
       var self = this;
-
      //  function updateState(dataform){
      // this.setState( {session: dataform} );
 
@@ -58,12 +59,11 @@ class LoginForm extends React.Component {
           dataType: 'json',
           data: userData,
           success: function(mainData) {
+            console.log(mainData)
               localStorage.setItem('jwt', mainData["jwt"]) ;
-          }.bind(self)
-          ,
+          }.bind(self),
           error: function(e) {
           var errors = $.parseJSON(e.responseText).errors
-
               console.log('Error!', errors);
           }.bind(this),
       });
@@ -74,41 +74,46 @@ class LoginForm extends React.Component {
     //   { console.log('saved successfully')
     // })}
 
-          // This will be called when the user clicks on the login button
+     //      // This will be called when the user clicks on the login button
+     // clearStorage(){
+     //  this.setState({session: localStorage.jwt})
+     //  localStorage.clear()
+     // }
+
      onSubmit(e){
       e.preventDefault();
       this.userLogIn(this.state)
-      console.log(localStorage)
-
-        if ((localStorage.jwt)&&(localStorage.jwt.length > 9 )){
-         this.props.welcomeStep()
+        if (localStorage.jwt.length >9){  
+             this.props.welcomeStep()
+           }
+        else{
+           alert("incorrect password or email")
          }
-        else {
-         alert("incorrect password or email")
-
-      }
      };
 
+     componentWillUnmount(){
+    window.localStorage.clear()
+
+ }
+     
   render() {
     return (
         <div>
-        <form onChange={this.onChange}>
+          <form onChange={this.onChange}>
           <div className="center_page">
-            <div className="row">
-            <TextField
-            id="email"
-            hintText="Email Address"
-            /><br />
-            <TextField
-            id="passwordInput"
-            hintText="Password Field"
-            floatingLabelText="Password"
-            type="password"
-            /><br />
 
-            </div>
-              <br/><br/>
-              <RaisedButton onClick={this.onSubmit} label="Log In" primary={true} />
+              <TextField
+              id="email"
+              hintText="Your Email"
+            />
+  
+              <TextField
+              id="passwordInput"
+              hintText="Your password"
+              type="password"
+            />
+            
+            <RaisedButton onClick={ this.onSubmit } > Login</RaisedButton>
           </div>
         </form>
        </div>

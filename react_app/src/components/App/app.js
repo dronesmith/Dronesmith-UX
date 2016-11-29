@@ -28,10 +28,7 @@ const muiTheme = getMuiTheme({
 class App extends React.Component {
 
     render() {
-      const styles = {
-        color: indigo900
-      }
-      var indigo900 = exports.indigo900 = '#1a237e';
+      
  
     return (
       <MuiThemeProvider muiTheme={muiTheme}>

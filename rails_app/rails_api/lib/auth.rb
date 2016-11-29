@@ -4,8 +4,14 @@ class Auth
 
   ALGORITHM ='HS256'
 
-  def self.issue(payload)
-    JWT.encode(payload, auth_secret, ALGORITHM)
+
+
+exp = Time.now.to_i + 4 * 3600
+exp_payload = { :data => 'data', :exp => exp }
+
+
+  def self.issue(exp_payload)
+    JWT.encode(exp_payload, auth_secret, ALGORITHM)
   end
 
   def self.decode(token)

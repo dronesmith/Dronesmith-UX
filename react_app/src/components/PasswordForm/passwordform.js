@@ -8,6 +8,7 @@ import InfoForm from '../InfoForm/infoform.js';
 import {nextStep} from '../Registration/registration.js'
 import { Link } from 'react-router';
 import RaisedButton from 'material-ui/RaisedButton';
+import TextField from 'material-ui/TextField';
 
 
 
@@ -15,23 +16,30 @@ class PasswordForm extends React.Component {
  constructor(props){
     super(props)
     this.state={
-      step: 1   
+      step: 1,  
+      email: "",
+      newPassword: ""
+
     }
 
     // this.emailChange= this.emailChange.bind(this)
-    this.onSubmit= this.onSubmit.bind(this)
+    this.onEmailSubmit= this.onEmailSubmit.bind(this)
     this.sendEmail= this.sendEmail.bind(this)
+    this.onPasswordSubmit= this.onPasswordSubmit.bind(this)
 
 } 
      
 
-    sendEmail(email){
-        console.log(email)
-        debugger
+    sendEmail(state){
+         const new_password = document.getElementById('password').value
+
         $.ajax({
-          url: "http://localhost:3000/login/", 
-          data: email,
-          type: "POST",
+          url: "http://localhost:5050/forgotpassword/", 
+          data: {
+           email: this.state.email,
+           newPassword: new_password
+          },
+          type: "PUT",
           success: function(data){
             console.log('success');
           }        
@@ -44,13 +52,17 @@ class PasswordForm extends React.Component {
     // })}
 
           // This will be called when the user clicks on the login button
-     onSubmit(e){
+     onEmailSubmit(e){
       e.preventDefault();
-      this.sendEmail(function emailChange(){
-        var emailChange = document.getElementById('textbox_id').value;
-       return emailChange
-      }())
-      this.setState({step: 2})
+        this.setState({email: document.getElementById('email').value});
+         this.setState({step: 2})
+       }
+      
+      onPasswordSubmit(e){
+      e.preventDefault();
+        this.setState({newPassword: document.getElementById('password').value})
+       this.sendEmail(function userEmail(){
+       return this.state()})
      }
 
       
@@ -64,14 +76,13 @@ class PasswordForm extends React.Component {
         <form>
           <div className="center_page">
             <div className="row">
-             <input type="text"
-               ref="email"
-               id='textbox_id'
-               name= "email"
-               placeholder= "Your Email" /> 
+             <TextField
+                id="email"
+                hintText="Enter your email"
+                  /> 
             </div>
               <br/><br/>
-                <RaisedButton onClick={this.onSubmit} primary={true}> Enter your Email </RaisedButton>
+                <RaisedButton onClick={this.onEmailSubmit} > Your Email </RaisedButton>
            </div>
         </form>     
       </div>
@@ -79,7 +90,21 @@ class PasswordForm extends React.Component {
     case 2:
     return (
        <div>
-         <p> Thank you your Password was sent</p>
+         <p> Please enter a new password</p>
+
+         <form>
+          <div className="center_page">
+            <div className="row">
+             <TextField
+                id="password"
+                hintText="Enter your new password"
+                type="password"
+                 /> 
+            </div>
+              <br/><br/>
+                <RaisedButton onClick={this.onPasswordSubmit}  > New password </RaisedButton>
+           </div>
+        </form>     
        </div>
            )
    } 

@@ -27,7 +27,7 @@ class Verification extends React.Component {
   submitCode(){
       
      this.props.fieldValues.user['code']=this.state.code
-    debugger
+    
     $.ajax({
         url: "http://localhost:5050/verifycode/", 
         data: this.props.fieldValues.user,
@@ -54,7 +54,7 @@ class Verification extends React.Component {
           <input type="text"
             name="code"
             placeholder= "Enter your SMS code" />  
-          <RaisedButton onClick={ this.onSubmit }> Enter your SMS code</RaisedButton>
+          <RaisedButton onClick={ this.onSubmit }> Enter SMS code</RaisedButton>
         </div>
       </form>
       </div>
