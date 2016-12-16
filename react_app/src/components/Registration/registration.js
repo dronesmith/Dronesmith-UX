@@ -5,12 +5,14 @@ import Welcome from '../Welcome/welcome.js'
 import LoginForm from '../LogInForm/loginform.js'
 import PasswordForm from '../PasswordForm/passwordform.js';
 import PhoneForm from '../PhoneForm/phoneform.js';
-import RaisedButton from 'material-ui/RaisedButton';
+import FlatButton from 'material-ui/FlatButton';
 import {
   Step,
   Stepper,
-  StepLabel,
+  StepLabel
 } from 'material-ui/Stepper';
+
+
 
 var fieldValues = {
   firstName: "",
@@ -22,15 +24,6 @@ var fieldValues = {
   language: ""
 };
 
-// function saveValues(fields) {
-//   return function() {
-//     fieldValues = Object.assign({}, fieldValues, fields)
-//   }()
-// }
-
-
-// Same as nextStep, but decrementing
-
 
 class Registration extends React.Component{
 
@@ -38,7 +31,9 @@ class Registration extends React.Component{
     super(props)
       this.state={
         step: 1
-      }
+
+
+       }
      this.nextStep=this.nextStep.bind(this),
      this.logStep=this.logStep.bind(this),
      this.passwordStep=this.passwordStep.bind(this),
@@ -96,33 +91,49 @@ class Registration extends React.Component{
 
 
   render() {
+  // var styles = {
+  //      line: {
+  //       color: "#5C6670",
+  //       fontFamily: "Verdana",
+  //       width: 600, 
+  //       marginLeft: 425
+  //     }
+  // };
 
-    switch (this.state.step) {
+
+
+  switch (this.state.step) {
       case 1:
         return (
-              <div>
-              <Stepper activeStep={(this.state.step)-1} >
-                  <Step>
-                    <StepLabel>Sign Up</StepLabel>
+           <div class="mdl-grid">
+
+              <Stepper activeStep={(this.state.step)-1}  style={{width: 600, marginLeft: 425}}>
+                  <Step >
+                      <StepLabel >
+                        Sign Up
+                      </StepLabel>
                   </Step>
                   <Step>
-                    <StepLabel>Phone Verify</StepLabel>
+                    <StepLabel >Phone Verify</StepLabel>
                   </Step>
                   <Step>
                     <StepLabel>Confirm</StepLabel>
                   </Step>
                 </Stepper>
+                <br/>
                 <InfoForm nextStep={this.nextStep}
                           saveValues={this.saveValues}/>
-                          <br/>
-                <RaisedButton primary={true} onClick={this.logStep} label="Log In" secondary={true} />
+                   
+                <div> <span style={{color:'#646869', fontSize: '16px'}}
+ >Already have an account?</span><FlatButton  style={{ color: '#2c87f0', fontSize: '15px'  }} onClick={this.logStep} >Log in</FlatButton>
+                </div>
               </div>
-                )
+       )
 
       case 2:
       return (
-        <div>
-        <Stepper activeStep={(this.state.step)-1} >
+      <div class="mdl-grid">
+        <Stepper activeStep={(this.state.step)-1} style={{width: 600, marginLeft: 425}}>
             <Step>
               <StepLabel>Sign Up</StepLabel>
             </Step>
@@ -133,6 +144,7 @@ class Registration extends React.Component{
               <StepLabel>Confirm</StepLabel>
             </Step>
           </Stepper>
+          <br/><br/>
         <PhoneForm fieldValues={fieldValues}
                           nextStep={this.nextStep}
                           previousStep={this.previousStep}
@@ -143,8 +155,8 @@ class Registration extends React.Component{
 
       case 3:
         return (
-          <div>
-          <Stepper activeStep={(this.state.step)-1}>
+        <div class="mdl-grid">
+          <Stepper activeStep={(this.state.step)-1} style={{width: 600, marginLeft: 425}}>
               <Step>
                 <StepLabel>Sign Up</StepLabel>
               </Step>
@@ -155,6 +167,7 @@ class Registration extends React.Component{
                 <StepLabel>Confirm</StepLabel>
               </Step>
             </Stepper>
+            <br/><br/>
           <Verification fieldValues={fieldValues}
                             nextStep={this.nextStep}
                             previousStep={this.previousStep}
@@ -165,20 +178,23 @@ class Registration extends React.Component{
 
       case 5:
         return (
-              <div>
+             <div class="mdl-grid">
                 <LoginForm  welcomeStep={this.welcomeStep}
                             saveValues={this.saveValues} />
                                             <br/>
-
-                <RaisedButton onClick={this.passwordStep}>Forgot Password</RaisedButton>
+                                            <div> 
+                                            <div>    
+                  <FlatButton  style={{ color: '#2c87f0', fontSize: '15px' }} onClick={this.passwordStep} > Forgot password? </FlatButton>
+                </div>       
+                </div>
                 <br/>
-                <br/>
-                <RaisedButton onClick={this.signupStep}>Sign up for Free</RaisedButton>
+                 <div> <span style={{color:'#646869', fontSize: '16px'}}>New to Dronesmith?</span><FlatButton  style={{ color: '#2c87f0', fontSize: '15px'  }} onClick={this.signupStep}> Sign-up </FlatButton></div>
               </div>
                 )
         case 6:
          return (
-            <PasswordForm />
+            <PasswordForm />             
+
           )
 
     }

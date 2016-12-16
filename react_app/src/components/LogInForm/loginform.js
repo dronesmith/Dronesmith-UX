@@ -1,14 +1,6 @@
 import React from 'react';
-import Registration  from '../Registration/registration.js'
-import {saveValues} from '../Registration/registration.js'
 import '../App/styles/app.css';
 var $ = require('jquery');
-import axios from 'axios';
-import InfoForm from '../InfoForm/infoform.js';
-import {nextStep} from '../Registration/registration.js'
-import PasswordForm from '../PasswordForm/passwordform.js';
-import { Link } from 'react-router';
-import Button from 'react-bootstrap/lib/Button';
 import RaisedButton from 'material-ui/RaisedButton';
 import TextField from 'material-ui/TextField';
 
@@ -49,12 +41,10 @@ class LoginForm extends React.Component {
 
       var userData = form.user;
       var self = this;
-     //  function updateState(dataform){
-     // this.setState( {session: dataform} );
-
-     //  }
+  
       $.ajax({
           url: "http://localhost:5050/login/",
+          async : false,
           type: "POST",
           dataType: 'json',
           data: userData,
@@ -69,17 +59,6 @@ class LoginForm extends React.Component {
       });
     }
 
-
-    // axios.post('http://localhost:5050/callback/', {user:this.state}).then(function(response)
-    //   { console.log('saved successfully')
-    // })}
-
-     //      // This will be called when the user clicks on the login button
-     // clearStorage(){
-     //  this.setState({session: localStorage.jwt})
-     //  localStorage.clear()
-     // }
-
      onSubmit(e){
       e.preventDefault();
       this.userLogIn(this.state)
@@ -92,32 +71,33 @@ class LoginForm extends React.Component {
      };
 
      componentWillUnmount(){
-    window.localStorage.clear()
-
- }
+       window.localStorage.clear()
+    }
      
   render() {
+    const buttonStyle = {
+    borderRadius: 6,
+    overflow: 'hidden',
+    color: '#ffffff'
+  };
     return (
-        <div>
-          <form onChange={this.onChange}>
+      <div>
+        <form onChange={this.onChange}>
           <div className="center_page">
-
-              <TextField
+            <TextField
               id="email"
-              hintText="Your Email"
+              hintText="Your E-mail"
             />
-  
-              <TextField
+            <TextField
               id="passwordInput"
               hintText="Your password"
               type="password"
             />
-            
-            <RaisedButton onClick={ this.onSubmit } > Login</RaisedButton>
+           <RaisedButton onClick={ this.onSubmit } primary={true} style={buttonStyle}> Log in </RaisedButton>
           </div>
         </form>
-       </div>
-      )
+      </div>
+    )
    }
 }
 

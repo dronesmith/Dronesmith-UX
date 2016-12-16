@@ -1,14 +1,10 @@
 import React from 'react';
-import Registration  from '../Registration/registration.js'
-import {saveValues} from '../Registration/registration.js'
 import '../App/styles/app.css';
 var $ = require('jquery');
-import axios from 'axios';
-import InfoForm from '../InfoForm/infoform.js';
-import {nextStep} from '../Registration/registration.js'
-import { Link } from 'react-router';
 import RaisedButton from 'material-ui/RaisedButton';
 import TextField from 'material-ui/TextField';
+import LoginForm from '../LogInForm/loginform.js'
+import FlatButton from 'material-ui/FlatButton';
 
 
 
@@ -18,58 +14,66 @@ class PasswordForm extends React.Component {
     this.state={
       step: 1,  
       email: "",
-      newPassword: ""
+      newPassword: "",
+      apiKey: ""
 
     }
-
-    // this.emailChange= this.emailChange.bind(this)
     this.onEmailSubmit= this.onEmailSubmit.bind(this)
     this.sendEmail= this.sendEmail.bind(this)
     this.onPasswordSubmit= this.onPasswordSubmit.bind(this)
+    this.loginStep= this.loginStep.bind(this)
 
-} 
-     
+  } 
 
     sendEmail(state){
-         const new_password = document.getElementById('password').value
+       const new_password = document.getElementById('newPassword').value
 
-        $.ajax({
-          url: "http://localhost:5050/forgotpassword/", 
-          data: {
-           email: this.state.email,
-           newPassword: new_password
-          },
-          type: "PUT",
-          success: function(data){
-            console.log('success');
-          }        
-        }); 
-
+      $.ajax({
+        url: "http://localhost:5050/forgotpassword/", 
+        data: {
+         email: this.state.email,
+         apiKey: this.state.apiKey,
+         newPassword: new_password
+        },
+        type: "PUT",
+        success: function(data){
+          console.log('success');
+        },   
+         error: function(data){
+          alert('ApiKey or email was not correct');
+        }     
+      }); 
     }
 
-    // axios.post('http://localhost:5050/callback/', {user:this.state}).then(function(response)
-    //   { console.log('saved successfully')
-    // })}
-
-          // This will be called when the user clicks on the login button
      onEmailSubmit(e){
       e.preventDefault();
         this.setState({email: document.getElementById('email').value});
+        this.setState({apiKey: document.getElementById('apiKey').value});
          this.setState({step: 2})
        }
       
       onPasswordSubmit(e){
       e.preventDefault();
-        this.setState({newPassword: document.getElementById('password').value})
+        this.setState({newPassword: document.getElementById('newPassword').value})
        this.sendEmail(function userEmail(){
        return this.state()})
-     }
+       }
+       
+       loginStep(){
+        this.setState({step: 3})
+       }     
 
       
   render() {
+  const buttonStyle = {
+      borderRadius: 6,
+      overflow: 'hidden',
+      color: "#ffffff",
+      width: 100
 
-    switch (this.state.step){
+    };
 
+      switch (this.state.step){
     case 1:
     return (
       <div>
@@ -78,35 +82,46 @@ class PasswordForm extends React.Component {
             <div className="row">
              <TextField
                 id="email"
-                hintText="Enter your email"
-                  /> 
+                hintText="Enter your e-mail"
+                  />        
+
+              <TextField
+                id="apiKey"
+                hintText="Enter your apiKey"
+                  />         
+            <RaisedButton primary={true} onClick={this.onEmailSubmit} style={buttonStyle}> Submit</RaisedButton> 
+
             </div>
-              <br/><br/>
-                <RaisedButton onClick={this.onEmailSubmit} > Your Email </RaisedButton>
+           
            </div>
         </form>     
+         <div> <span style={{color:'#646869', fontSize: '16px'}}> Already have an account?</span><FlatButton  style={{ color: '#6698ff', fontSize: '15px'  }} onClick={this.loginStep} >Log in</FlatButton></div>
+
       </div>
     )
     case 2:
     return (
        <div>
-         <p> Please enter a new password</p>
 
          <form>
-          <div className="center_page">
-            <div className="row">
+          <div className="center_page">       
              <TextField
-                id="password"
-                hintText="Enter your new password"
-                type="password"
+                id="newPassword"
+                 hintText="Enter your new password"
+                 type="password"
+
                  /> 
-            </div>
-              <br/><br/>
-                <RaisedButton onClick={this.onPasswordSubmit}  > New password </RaisedButton>
            </div>
-        </form>     
+         <div> <FlatButton  style={{ color: '#6698ff', fontSize: '15px'  }} onClick={this.onPasswordSubmit} >Submit</FlatButton></div>
+        </form> 
+
        </div>
-           )
+    )
+
+    case 3:
+    return(
+      <LoginForm />
+      )
    } 
  } 
 }

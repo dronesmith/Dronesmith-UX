@@ -1,36 +1,15 @@
 import React from 'react';
-import Registration  from '../Registration/registration.js'
-import {saveValues} from '../Registration/registration.js'
 import '../App/styles/app.css';
 var $ = require('jquery');
-import {map} from 'lodash/map';
-import axios from 'axios';
-import {nextStep} from '../Registration/registration.js'
-import { Link } from 'react-router';
-import LoginForm from '../LogInForm/loginform.js';
-import ButtonToolbar from 'react-bootstrap'
-import DropdownButton from 'react-bootstrap'
-import Select from 'react-select';
-import Button from 'react-bootstrap/lib/Button';
-import ButtonGroup from 'react-bootstrap'
-import Primary from 'react-bootstrap'
-import ReactBootstrap from 'react-bootstrap'
-import jwt_decode from 'jwt-decode'
 import ButtonMain from '../Dropdown/buttonmain.js'
 import RaisedButton from 'material-ui/RaisedButton';
-import {
-  Step,
-  Stepper,
-  StepLabel,
-} from 'material-ui/Stepper';
 import TextField from 'material-ui/TextField';
-import SelectField from 'material-ui/SelectField';
-import {indigo900} from 'material-ui/styles/colors';
+import Dialog from 'material-ui/Dialog';
+import FlatButton from 'material-ui/FlatButton';
 
 
 
 class InfoForm extends React.Component {
-
   constructor(props){
     super(props)
     this.state={
@@ -43,37 +22,47 @@ class InfoForm extends React.Component {
       passwordConfirm: "",
       language: "",
       credentials: "",
-      session: null
+      session: null,
+      open: false
     }
 
     this.onChange= this.onChange.bind(this)
     this.onSubmit= this.onSubmit.bind(this)
     this.userSignUp= this.userSignUp.bind(this)
-}
+    this.handleOpen= this.handleOpen.bind(this)
+    this.handleClose= this.handleClose.bind(this)
 
-
-
-handleNext = () => {
-  const {stepIndex} = this.state;
-  this.setState({
-    stepIndex: stepIndex + 1,
-    finished: stepIndex >= 2,
-  });
-};
-
-handlePrev = () => {
-  const {stepIndex} = this.state;
-  if (stepIndex > 0) {
-    this.setState({stepIndex: stepIndex - 1});
   }
-};
 
-state = {
-  finished: false,
-  value: 1
-};
+    handleOpen = () => {
+      this.setState({open: true});
+    };
 
-handleChange = (event, index, value) => this.setState({language: value});
+    handleClose = () => {
+      this.setState({open: false});
+    };  
+
+    handleNext = () => {
+      const {stepIndex} = this.state;
+      this.setState({
+        stepIndex: stepIndex + 1,
+        finished: stepIndex >= 2,
+      });
+    };
+
+    handlePrev = () => {
+      const {stepIndex} = this.state;
+      if (stepIndex > 0) {
+        this.setState({stepIndex: stepIndex - 1});
+      }
+    };
+
+    state = {
+      finished: false,
+      value: 1
+    };
+
+   handleChange = (event, index, value) => this.setState({language: value});
 
     onChange(e, name){
       var change = {};
@@ -81,7 +70,7 @@ handleChange = (event, index, value) => this.setState({language: value});
       this.setState(change);
     }
      //must refactor signup code and seperate functions
-    userSignUp(){
+    userSignUp(){  
       var self = this
       const newpas= window.btoa(self.state.passwordInput)
       const newpascon= window.btoa(self.state.passwordConfirm)
@@ -107,25 +96,65 @@ handleChange = (event, index, value) => this.setState({language: value});
           type: "POST",
           success: function(data){
             function setSession(data){ this.setState.session(data)
-              console.log(this.state)
+              return true;
            }
-
           }.bind(this),
-          error: function(xhr, status, err) {
-        console.error(this.props.url, status, err.toString());
-      }.bind(this)
+         error: function(data){
+          alert('You already have an account. Please Log-in instead');
+          return false;
+        }.bind(this)
       });
     }
 
+     validateForm(){
+       return (
+        !!this.state.firstName && 
+        !!this.state.lastName && 
+        !!this.state.companyName &&
+        !!this.state.email &&
+        !!this.state.passwordInput &&
+        !!this.state.passwordConfirm &&
+        !!this.state[""] 
+        )
+      }
+
      onSubmit(e){
+     
       e.preventDefault();
-      this.userSignUp(this.state)
-      this.props.nextStep()
-      alert("Hello - Please check your email for your API key!")
-    };
+      if (this.validateForm()){
+          if ( this.state.passwordInput === this.state.passwordConfirm ){
+             this.userSignUp(this.state)
+              this.props.nextStep()
+             
+           }else{
+           this.handleOpen()  
+       }
+      }else{
+       this.handleOpen()
+      }
+    };            
+    
+
 
 render(){
+
   const {finished, stepIndex} = this.state;
+  
+
+  const actions = [
+      <FlatButton
+        label="OK"
+        primary={true}
+        onClick={this.handleClose}
+      />
+    ];
+  const buttonStyle = {
+    borderRadius: 6,
+    overflow: 'hidden',
+    color: "#ffffff",
+    width: 100
+  };
+ 
     return (
       <div>
     <div class="mdl-grid">
@@ -164,12 +193,27 @@ render(){
             /><br />
 
            <br/><br/>
-                   <ButtonMain language={this.props.selectedLang}/>
+                   <ButtonMain language={this.props.selectedLang} />
            <br/><br/>
 
-            <RaisedButton onClick={this.onSubmit} label="Get Started" primary={true}  />
+            <RaisedButton onClick={ this.onSubmit } primary={true} style={buttonStyle}> Get started </RaisedButton>
         </form>
      </div>
+    
+
+     
+        <div>
+          <Dialog
+            title="Your passwords didn't match or you are missing some fields."
+            actions={actions}
+            primary={true}
+            modal={false}
+            open={this.state.open}
+            onRequestClose={this.handleClose}
+          />
+        </div>   
+
+
      </div>
     )
 

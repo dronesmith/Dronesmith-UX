@@ -1,13 +1,6 @@
 'use strict';
 import React from 'react';
 import AppBar from 'material-ui/AppBar';
-import IconButton from 'material-ui/IconButton';
-import IconMenu from 'material-ui/IconMenu';
-import MenuItem from 'material-ui/MenuItem';
-import FlatButton from 'material-ui/FlatButton';
-import Toggle from 'material-ui/Toggle';
-import MoreVertIcon from 'material-ui/svg-icons/navigation/more-vert';
-import NavigationClose from 'material-ui/svg-icons/navigation/close';
 import './styles/Nav.css'
 import {indigo900} from 'material-ui/styles/colors';
 
@@ -50,12 +43,14 @@ class Nav extends React.Component {
   //   this.setState({logged: logged});
   // };
     render() {
-      var imgUrl=require('../Nav/styles/white_logo.png');
+      var imgUrl=require('./styles/white_logo.png');
       return (
         <AppBar 
            style={{backgroundColor: indigo900}}  
            class="nav_bar"
-           iconElementLeft={<img src={imgUrl} url={this.props.url} /> }   
+
+            href="www.dronesmith.io"
+           iconElementLeft={<img src={imgUrl}  href="www.dronesmith.io" url={this.props.url}  style={{margin: 10, marginTop: 4}}/>  }  
            // iconElementLeft={<img src={imgUrl}/>} 
         />
     );

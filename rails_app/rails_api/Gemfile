@@ -17,6 +17,7 @@ gem 'rest-client', '~> 1.8'
 gem 'puma', '~> 3.0'
 gem 'devise'
 gem 'has_secure_token'
+gem 'sendgrid-ruby'
 gem 'sendgrid'
 # Use sqlite3 as the database for Active Record
 gem 'sqlite3'

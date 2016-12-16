@@ -2,7 +2,7 @@ import React from 'react';
 import '../App/styles/app.css';
 var $ = require('jquery');
 import RaisedButton from 'material-ui/RaisedButton';
-
+import TextField from 'material-ui/TextField';
 
 
 class Verification extends React.Component {
@@ -19,18 +19,22 @@ class Verification extends React.Component {
 
     onChange(e, name){
       var change = {};
-      change[e.target.name]=e.target.value;
+      change[e.target.id]=e.target.value;
       this.setState(change);
            
     }
 
   submitCode(){
-      
+     
      this.props.fieldValues.user['code']=this.state.code
     
     $.ajax({
         url: "http://localhost:5050/verifycode/", 
+
+
         data: this.props.fieldValues.user,
+        
+
         type: "POST",
         success: function(data){
           console.log('success');
@@ -45,18 +49,22 @@ class Verification extends React.Component {
     };
 
   render() {
-   
-   //1) user puts in phone number. 2) user clicks on button to send them to other component  
+   const buttonStyle = {
+    borderRadius: 6,
+    overflow: 'hidden',
+    color: '#ffffff',
+  };
     return (
       <div>
-      <form onChange={this.onChange}>
-        <div className="center_page">
-          <input type="text"
-            name="code"
-            placeholder= "Enter your SMS code" />  
-          <RaisedButton onClick={ this.onSubmit }> Enter SMS code</RaisedButton>
-        </div>
-      </form>
+       <form onChange={this.onChange}>
+          <div className="center_page">
+            <TextField
+              id="code"
+              hintText="Enter your SMS code"
+            />
+             <RaisedButton onClick={ this.onSubmit } primary={true} style={buttonStyle}> SMS code</RaisedButton>   
+          </div>
+        </form>
       </div>
     );
      

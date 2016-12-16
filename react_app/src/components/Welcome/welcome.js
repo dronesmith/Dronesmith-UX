@@ -7,15 +7,12 @@ class Welcome extends React.Component {
     window.localStorage.clear()
 
  }
-
  
   render() {
     return (
-      
-          <div className="center_page">
-            <h1 className="welcome_page">WELCOME </h1>  
-          </div>
-      
+    <div className="center_page">
+      <h1 className="welcome_page">Welcome </h1>  
+    </div>
     );
   }
 }

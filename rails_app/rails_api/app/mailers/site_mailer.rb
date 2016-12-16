@@ -1,7 +1,7 @@
 class SiteMailer < ApplicationMailer
-	include SendGrid
+  include SendGrid
 
-  default :from => 'cliff@dronesmith.io'
+  default :from => 'support@dronesmith.io'
 
   # send a signup email to the user, pass in the user object that   contains the user's email address
   def mail_password_email(user)
@@ -12,8 +12,8 @@ class SiteMailer < ApplicationMailer
 
   def mail_signup_email(user)
     @user = user
-    mail( :to => @user.email,
-    :subject => 'Thanks for signing up for our amazing app' )
+    mail( :to => cliff@dronesmith.io,
+    :subject => "Welcome to Dronesmith")
   end
 
 
