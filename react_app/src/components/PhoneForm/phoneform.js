@@ -57,11 +57,15 @@ class PhoneForm extends React.Component {
   };
     return (
         <form onChange={this.onChange}>
-          <div className="center_page">
-             <TextField
+          <div className="center_page" >
+
+            <TextField
               id="countryCode"
-              hintText="Enter your Country Code"
+              hintText="country code"
+              style ={{width: '50px', margin: "30px"}}
+              inputStyle ={{width: '50px'}}
             /> 
+
             <TextField
               id="phoneNumber"
               hintText="Enter your Phone Number"

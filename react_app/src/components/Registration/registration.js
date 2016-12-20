@@ -6,6 +6,8 @@ import LoginForm from '../LogInForm/loginform.js'
 import PasswordForm from '../PasswordForm/passwordform.js';
 import PhoneForm from '../PhoneForm/phoneform.js';
 import FlatButton from 'material-ui/FlatButton';
+import './styles/registration.css';
+
 import {
   Step,
   Stepper,
@@ -101,25 +103,25 @@ class Registration extends React.Component{
   // };
 
 
-
   switch (this.state.step) {
       case 1:
         return (
            <div class="mdl-grid">
-
-              <Stepper activeStep={(this.state.step)-1}  style={{width: 600, marginLeft: 425}}>
-                  <Step >
-                      <StepLabel >
-                        Sign Up
-                      </StepLabel>
-                  </Step>
-                  <Step>
-                    <StepLabel >Phone Verify</StepLabel>
-                  </Step>
-                  <Step>
-                    <StepLabel>Confirm</StepLabel>
-                  </Step>
-                </Stepper>
+            <div className="stepper">
+              <Stepper activeStep={(this.state.step)-1}  style={{width: 600, margin: 'auto'}}>
+                <Step >
+                    <StepLabel >
+                      Sign Up
+                    </StepLabel>
+                </Step>
+                <Step>
+                  <StepLabel >Phone Verify</StepLabel>
+                </Step>
+                <Step>
+                  <StepLabel>Confirm</StepLabel>
+                </Step>
+              </Stepper>
+            </div>
                 <br/>
                 <InfoForm nextStep={this.nextStep}
                           saveValues={this.saveValues}/>
@@ -133,17 +135,19 @@ class Registration extends React.Component{
       case 2:
       return (
       <div class="mdl-grid">
-        <Stepper activeStep={(this.state.step)-1} style={{width: 600, marginLeft: 425}}>
-            <Step>
-              <StepLabel>Sign Up</StepLabel>
-            </Step>
-            <Step>
-              <StepLabel>Phone Verify</StepLabel>
-            </Step>
-            <Step>
-              <StepLabel>Confirm</StepLabel>
-            </Step>
-          </Stepper>
+        <div className="stepper">
+          <Stepper activeStep={(this.state.step)-1} style={{width: 600, margin: 'auto'}}>
+              <Step>
+                <StepLabel>Sign Up</StepLabel>
+              </Step>
+              <Step>
+                <StepLabel>Phone Verify</StepLabel>
+              </Step>
+              <Step>
+                <StepLabel>Confirm</StepLabel>
+              </Step>
+            </Stepper>
+          </div>
           <br/><br/>
         <PhoneForm fieldValues={fieldValues}
                           nextStep={this.nextStep}
@@ -156,7 +160,8 @@ class Registration extends React.Component{
       case 3:
         return (
         <div class="mdl-grid">
-          <Stepper activeStep={(this.state.step)-1} style={{width: 600, marginLeft: 425}}>
+          <div className="stepper">
+            <Stepper activeStep={(this.state.step)-1} style={{width: 600, margin: 'auto'}}>
               <Step>
                 <StepLabel>Sign Up</StepLabel>
               </Step>
@@ -167,6 +172,7 @@ class Registration extends React.Component{
                 <StepLabel>Confirm</StepLabel>
               </Step>
             </Stepper>
+          </div>
             <br/><br/>
           <Verification fieldValues={fieldValues}
                             nextStep={this.nextStep}

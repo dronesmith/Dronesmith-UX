@@ -25,7 +25,7 @@ class ButtonMain extends React.Component{
  
     return (
       <div>
-        <div style={letterStyle}>Please select a language:</div>
+        <div style={letterStyle}>Please select your preferred programming language:</div>
       <select 
         value={this.state.selectedLang} 
         onChange={this.handleChange} 
@@ -37,7 +37,7 @@ class ButtonMain extends React.Component{
         <option value="java">Java</option>
         <option value="php">PHP</option>
         <option value="golang">GoLang</option>
-
+        <option value="n/a">N/A</option>
       </select>
         
       </div>        

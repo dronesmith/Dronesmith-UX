@@ -20,11 +20,9 @@ class Footer extends React.Component {
       };
     return (
       <div style={letterStyle}  >
-        
-         <div>{str}<br/><a href='http://www.dronesmith.com/privacy' style={tcolor}>Privacy Policy</a>
-
-          </div>
-         <a href='http://www.dronesmith.com/service' style={tcolor}>Terms of Service</a>
+        <div>
+          {str}
+        </div>
       </div>
       );
   }

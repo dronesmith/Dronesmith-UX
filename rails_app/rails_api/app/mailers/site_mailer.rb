@@ -13,7 +13,7 @@ class SiteMailer < ApplicationMailer
   def mail_signup_email(user)
     @user = user
     mail( :to => cliff@dronesmith.io,
-    :subject => "Welcome to Dronesmith")
+    :subject => "Welcome to the Dronesmith community")
   end
 
 

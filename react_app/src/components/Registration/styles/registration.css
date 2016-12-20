@@ -1,6 +1,14 @@
+
+@media all and (max-width: 680px) {
+  .stepper { display: none; }
+}
+
+
 .myCustomInput{
 	 font-size: 20px;
     height: 12px;
     background-color: #ccc;
     padding: 3px 5px; 
 }
+
+
