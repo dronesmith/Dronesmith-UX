@@ -3,6 +3,8 @@ import '../App/styles/app.css';
 var $ = require('jquery');
 import RaisedButton from 'material-ui/RaisedButton';
 import TextField from 'material-ui/TextField';
+import {welcomeStep} from '../Registration/registration.js';
+import Welcome from '../Welcome/welcome.js'
 
 
 class LoginForm extends React.Component {
@@ -11,14 +13,14 @@ class LoginForm extends React.Component {
     this.state={
       email: "",
       passwordInput: "",
-      session: null
+      session: null,
+      step: 1
     }
 
     this.onChange= this.onChange.bind(this)
     this.onSubmit= this.onSubmit.bind(this)
     this.userLogIn= this.userLogIn.bind(this)
-
-}
+   };
 
     onChange(e, id){
       
@@ -37,7 +39,7 @@ class LoginForm extends React.Component {
         passwordInput: newpassword
         }
       }
-      this.props.saveValues(form)
+      // this.props.saveValues(form)
 
       var userData = form.user;
       var self = this;
@@ -62,8 +64,9 @@ class LoginForm extends React.Component {
      onSubmit(e){
       e.preventDefault();
       this.userLogIn(this.state)
+       
         if (localStorage.jwt.length >9){  
-             this.props.welcomeStep()
+            this.setState({step: 2})
            }
         else{
            alert("incorrect password or email")
@@ -80,6 +83,10 @@ class LoginForm extends React.Component {
     overflow: 'hidden',
     color: '#ffffff'
   };
+
+  switch (this.state.step) {
+    
+   case 1:
     return (
       <div>
         <form onChange={this.onChange}>
@@ -98,7 +105,15 @@ class LoginForm extends React.Component {
         </form>
       </div>
     )
+
+    case 2:
+       return (
+        <Welcome />
+        )
+
    }
+ }
 }
+
 
 export default LoginForm;

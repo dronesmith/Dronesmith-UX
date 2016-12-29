@@ -16,78 +16,67 @@ class Welcome extends React.Component {
 
     this.logoHover= this.logoHover.bind(this)
 
-};
+  };
 	
- // componentWillMount(){
- //    window.localStorage.clear()
 
- // };
-
-//  logoHover(){
-//    style={{width:'100', color: '#ffffff'}};
-// }
-
-logoHover(){
-   this.setState({hover: true})
-}
+  logoHover(){
+     this.setState({hover: true})
+  }
 
 
- gitClick(){
- 	this.setState({link: "github"})
-};
+   gitClick(){
+   	this.setState({link: "github"})
+  };
 
 
- slackClick(){
- 	this.setState({link: "slack"})
-};
-
+   slackClick(){
+   	this.setState({link: "slack"})
+  };
 
 
   render() { 
 
-  switch (this.state.hover) {
-  case true:
-          (
-    	 this.style= {width:"200"}
+    switch (this.state.hover) {
+    case true:
+            (
+      	 this.style= {width:"200"}
+           )
+      }
+    switch (this.state.link) {
+        case "github":
+          return (
+               window.location.href = "https://github.com/dronesmith/Dronesmith-Ground-Control"
          )
+
+        case "slack": 
+  	      return (
+  	             window.location.href = "http://community.dronesmith.io/"
+  	       )
     }
-  switch (this.state.link) {
-      case "github":
-        return (
-             window.location.href = "https://github.com/dronesmith/Dronesmith-Ground-Control"
-       )
-
-      case "slack": 
-	      return (
-	             window.location.href = "http://community.dronesmith.io/"
-	       )
-}
-var letterStyle = {
-        color: "#5C6670",
-        fontFamily: "Verdana"
-      };
-var tcolor = {
-        color: "#2c87f0",
-        fontFamily: "Verdana"
-      };
-
-
+    var letterStyle = {
+            color: "#5C6670",
+            fontFamily: "Verdana"
+          };
+    var tcolor = {
+            color: "#2c87f0",
+            fontFamily: "Verdana"
+          };
 
     return (
-    <div className="center_page" style={letterStyle} >
-       <p>Thank you! We will e-mail you shortly with your API key.</p> 
-<p>In the meantime, check out our <a href='https://dronesmith.readme.io/docs' target="_blank" style={tcolor}>API documentation</a></p>
-<p>or</p>
-<p>Get started with our <a href='https://github.com/dronesmith/Dronesmith-Ground-Control' target="_blank" style={tcolor}>sample API</a></p>
+      <div className="center_page" style={letterStyle} >
+        <p>Thank you! We will e-mail you shortly with your API key.</p> 
+        <p>In the meantime, check out our <a href='https://dronesmith.readme.io/docs' target="_blank" style={tcolor}>API documentation</a></p>
+        <p>or</p>
+        <p>Get started with our <a href='https://github.com/dronesmith/Dronesmith-Ground-Control' target="_blank" style={tcolor}>sample API</a></p>
+        <p>Find us on</p> 
 
-<p>Find us on</p> 
-
-       <div> <img src={GitLogo} onClick={this.gitClick} title="Dronesmith Github account" onMouseOver={this.logoHover} style={{cursor:"pointer", width: '45px' }}/>
-      <img src={SlackLogo} onClick={this.slackClick} title="Dronesmith Slack Community" onMouseOver={this.logoHover} style={{cursor:"pointer", width: '90px'}}/></div>
- <br/>
-<p>Return to Dronesmith <a href='https://dronesmith.io' style={tcolor}>home</a></p>
-
-    </div>
+        <div> 
+          <img src={GitLogo} onClick={this.gitClick} title="Dronesmith Github account" onMouseOver={this.logoHover} style={{cursor:"pointer", width: '45px' }}/>
+          <img src={SlackLogo} onClick={this.slackClick} title="Dronesmith Slack Community" onMouseOver={this.logoHover} style={{cursor:"pointer", width: '90px'}}/>
+        </div>
+        <br/>
+        <p>Return to Dronesmith <a href='https://dronesmith.io' style={tcolor}>home</a></p>
+      </div>
     );
   }
 }

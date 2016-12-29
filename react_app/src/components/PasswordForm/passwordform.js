@@ -37,7 +37,7 @@ class PasswordForm extends React.Component {
         },
         type: "PUT",
         success: function(data){
-          console.log('success');
+            console.log("success");
         },   
          error: function(data){
           alert('ApiKey or email was not correct');
@@ -57,6 +57,7 @@ class PasswordForm extends React.Component {
         this.setState({newPassword: document.getElementById('newPassword').value})
        this.sendEmail(function userEmail(){
        return this.state()})
+       this.loginStep()
        }
        
        loginStep(){
